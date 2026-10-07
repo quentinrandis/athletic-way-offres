@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Athletic Way — Trouve ton programme</title>
+<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Protocol ou coaching 1:1).">
+<link rel="icon" type="image/svg+xml" href="img/aw-logo-red.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0a;--panel:#141414;--line:rgba(255,255,255,.14);--text:#f5f5f5;--muted:#a3a3a3;--red:#f33d4c}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:400 16px/1.6 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.95;letter-spacing:.01em}
+  .pad{padding-left:clamp(20px,5vw,56px);padding-right:clamp(20px,5vw,56px)}
+  .eyebrow{font:600 12px "DM Sans";letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--red);color:#fff;text-decoration:none;font:700 14px "DM Sans";letter-spacing:.08em;text-transform:uppercase;padding:18px 34px;border-radius:6px;transition:.2s;border:0;cursor:pointer}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--red)}
+
+  /* HERO */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;isolation:isolate}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;background:#000}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.6) 0%,rgba(10,10,10,.25) 38%,rgba(10,10,10,.95) 100%)}
+  .bar{display:flex;justify-content:space-between;align-items:center;padding-top:24px;padding-bottom:24px}
+  .bar img{height:26px;display:block}
+  .bar a{color:var(--muted);text-decoration:none;font:500 12px "DM Sans";letter-spacing:.12em;text-transform:uppercase}
+  .bar a:hover{color:var(--text)}
+  .hero-body{padding-bottom:clamp(40px,7vh,72px);max-width:1000px}
+  .hero h1{font-size:clamp(60px,12vw,150px)}
+  .hero h1 span{color:var(--red)}
+  .hero p{margin-top:22px;font-size:clamp(16px,2vw,20px);color:#dcdcdc;max-width:500px}
+  .hero .btn{margin-top:32px}
+  .stats{display:flex;flex-wrap:wrap;gap:8px 36px;margin-top:40px}
+  .stats div{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .stats b{display:block;font:400 38px/1 "Bebas Neue";color:var(--text);letter-spacing:.02em}
+
+  /* RESULTS */
+  .results{padding-top:clamp(64px,10vh,110px);padding-bottom:24px}
+  .results h2,.reviews h2{font-size:clamp(40px,6vw,72px);margin-bottom:28px}
+  .rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:16px;margin:0 calc(-1*clamp(20px,5vw,56px));padding-left:clamp(20px,5vw,56px);padding-right:clamp(20px,5vw,56px);scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .ba{flex:0 0 clamp(260px,34vw,380px);scroll-snap-align:start;background:var(--panel);border-radius:10px;overflow:hidden}
+  .ba .pair{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .ba .pair div{position:relative}
+  .ba img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+  .ba span{position:absolute;left:8px;bottom:8px;font:700 10px "DM Sans";letter-spacing:.14em;background:rgba(0,0,0,.7);padding:3px 8px;border-radius:3px}
+  .ba span.after{background:var(--red)}
+  .ba p{padding:12px 14px;font-size:13px;color:var(--muted)}
+  .ba p b{color:var(--text);font-weight:600}
+
+  /* QUIZ */
+  .quiz-wrap{background:var(--panel);margin-top:48px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .quiz{max-width:760px;margin:0 auto;padding:clamp(64px,10vh,120px) 20px;min-height:86vh;display:flex;flex-direction:column;justify-content:center}
+  .progress{display:flex;gap:6px;margin-bottom:36px}
+  .progress i{flex:1;height:3px;background:var(--line);border-radius:2px;transition:.3s}
+  .progress i.on{background:var(--red)}
+  .quiz h2{font-size:clamp(42px,8vw,76px);margin-bottom:32px}
+  .opts{display:grid;gap:12px}
+  .opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;border:1px solid var(--line);border-radius:8px;font-size:17px;font-weight:500;transition:.18s;background:var(--bg)}
+  .opt small{display:block;color:var(--muted);font-size:13.5px;font-weight:400;margin-top:2px}
+  .opt::after{content:"→";color:var(--red);opacity:0;transform:translateX(-6px);transition:.18s}
+  .opt:hover,.opt:focus-visible{border-color:var(--red)}
+  .opt:hover::after,.opt:focus-visible::after{opacity:1;transform:none}
+  .back{all:unset;cursor:pointer;margin-top:24px;font-size:13px;color:var(--muted)}
+  .back:hover{color:var(--text)}
+  .skip{margin-top:48px;font-size:13px;color:var(--muted)}
+  .skip a{color:var(--text);margin-left:14px;text-underline-offset:4px}
+
+  .result .pill{display:inline-block;background:var(--red);color:#fff;font:700 11px "DM Sans";letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:99px;margin-bottom:18px}
+  .result h2{margin-bottom:16px}
+  .result p{color:#dcdcdc;font-size:18px;max-width:560px}
+  .result ul{list-style:none;margin:26px 0 6px;display:grid;gap:10px}
+  .result li{padding-left:28px;position:relative;font-size:15.5px}
+  .result li::before{content:"";position:absolute;left:0;top:11px;width:13px;height:2px;background:var(--red)}
+  .price{margin:26px 0 22px;color:var(--muted);font-size:14px}
+  .price b{font:400 56px/1 "Bebas Neue";color:var(--text);margin-right:10px}
+  .actions{display:flex;flex-wrap:wrap;gap:12px}
+  .more{display:block;margin-top:18px;font-size:13px;color:var(--muted);text-underline-offset:4px}
+  .more:hover{color:var(--text)}
+
+  /* REVIEWS */
+  .reviews{padding-top:clamp(64px,10vh,110px);padding-bottom:64px}
+  .msgs{columns:3 260px;column-gap:14px}
+  .msgs img{width:100%;display:block;border-radius:10px;margin-bottom:14px;break-inside:avoid}
+
+  /* CLIPS */
+  .clips{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+  .clips video{width:100%;aspect-ratio:9/14;object-fit:cover;display:block;background:#000}
+  footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:32px;padding-bottom:48px;font-size:12px;color:var(--muted)}
+  footer img{height:20px}
+
+  @media(max-width:700px){.clips{grid-template-columns:repeat(2,1fr)}}
+  @media(prefers-reduced-motion:reduce){.hero video,.clips video{display:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <video autoplay muted loop playsinline preload="metadata" poster="media/poster1.jpg" src="media/clip1.mp4"></video>
+  <div class="bar pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><a href="https://instagram.com/quentinrandis" target="_blank" rel="noopener">@quentinrandis</a></div>
+  <div class="hero-body pad">
+    <h1>Athlétique.<br>Esthétique.<br><span>Construit pour durer.</span></h1>
+    <p>4 questions, 30 secondes. On te dit quel format te correspond : programme 12 semaines, système mensuel ou coaching 1:1.</p>
+    <a class="btn" href="#quiz">Trouver mon programme</a>
+    <div class="stats"><div><b>500+</b>transformations</div><div><b>10 ans</b>de coaching</div><div><b>4 pays</b>US · AUS · UK · FR</div></div>
+  </div>
+</header>
+
+<section class="results pad">
+  <div class="eyebrow">Résultats</div>
+  <h2>Des vrais gars.<br>Des vrais emplois du temps.</h2>
+  <div class="rail">
+    <article class="ba"><div class="pair"><div><img src="img/mateo_before.jpg" alt="Mateo avant" loading="lazy"><span>AVANT</span></div><div><img src="img/mateo_after.jpg" alt="Mateo après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Mateo V.</b> · Pompier</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/thomas_r_before.jpg" alt="Thomas avant" loading="lazy"><span>AVANT</span></div><div><img src="img/thomas_r_after.jpg" alt="Thomas après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Thomas R.</b> · Pompier</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/tom_before.jpg" alt="Tom avant" loading="lazy"><span>AVANT</span></div><div><img src="img/tom_after.jpg" alt="Tom après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Tom T.</b> · Agriculteur &amp; arts martiaux</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/quentin_before.jpg" alt="Quentin avant" loading="lazy"><span>AVANT</span></div><div><img src="img/quentin_after.jpg" alt="Quentin après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Quentin M.</b> · Chef de chantier</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/thomas_m_before.jpg" alt="Thomas avant" loading="lazy"><span>AVANT</span></div><div><img src="img/thomas_m_after.jpg" alt="Thomas après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Thomas M.</b> · Commercial terrain</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/tim_before.jpg" alt="Timothée avant" loading="lazy"><span>AVANT</span></div><div><img src="img/tim_after.jpg" alt="Timothée après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Timothée L.</b> · Acheteur</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/qr_before.jpg" alt="Quentin Randis avant" loading="lazy"><span>AVANT</span></div><div><img src="img/qr_after.jpg" alt="Quentin Randis après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Quentin Randis</b> · Ex-foot US, ton coach</p></article>
+  </div>
+</section>
+
+<div class="quiz-wrap">
+  <main class="quiz" id="quiz" aria-live="polite"><div id="stage"></div></main>
+</div>
+
+<section class="reviews pad">
+  <div class="eyebrow">Ce qu'ils t'écrivent</div>
+  <h2>Messages non retouchés</h2>
+  <div class="msgs">
+    <img src="img/msg1.jpg" alt="Message client" loading="lazy">
+    <img src="img/msg2.jpg" alt="Message client" loading="lazy">
+    <img src="img/msg3.jpg" alt="Message client" loading="lazy">
+    <img src="img/msg4.jpg" alt="Message client" loading="lazy">
+  </div>
+</section>
+
+<section class="clips" aria-hidden="true">
+  <video muted loop playsinline preload="none" poster="media/poster1.jpg" data-src="media/clip1.mp4"></video>
+  <video muted loop playsinline preload="none" poster="media/poster2.jpg" data-src="media/clip2.mp4"></video>
+  <video muted loop playsinline preload="none" poster="media/poster3.jpg" data-src="media/clip3.mp4"></video>
+  <video muted loop playsinline preload="none" poster="media/poster4.jpg" data-src="media/clip4.mp4"></video>
+</section>
+
+<footer class="pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><span>© 2026 Athletic Way · Quentin Randis</span></footer>
+
+<script>
+/* ---------- LIENS ---------- */
+const LINKS = {
+  foundations:  "https://app.jimmycoach.com/pay/d13200cd-394b-44f0-9fb0-c7382878d42e",
+  protocolMois: "https://app.jimmycoach.com/pay/621da120-837d-4f35-9fe0-9c34108b5be4",
+  protocolTri:  "https://app.jimmycoach.com/pay/d649ef4d-9f64-4d17-b2e5-237a7074412b",
+  coaching:     "https://calendly.com/quentin-randis/meet-avec-quentin"
+};
+const PAGES = { // pages de vente détaillées ("En savoir plus")
+  foundations: "https://fondation.quentinrandis.com/",
+  protocol:    "https://club.quentinrandis.com/",
+  coaching:    "https://coaching.quentinrandis.com/"
+};
+
+/* ---------- QUIZ : f = Foundations, p = Protocol, c = Coaching ---------- */
+const QUESTIONS = [
+  { q:"Ton objectif principal ?", opts:[
+    { t:"Être plus fort", goal:"devenir plus fort" },
+    { t:"Prendre du muscle, un physique dessiné", goal:"construire du muscle" },
+    { t:"Être plus athlétique", s:"Force, explosivité, endurance, mobilité", goal:"devenir un athlète complet" },
+    { t:"Me sécher", goal:"te sécher sans perdre ton niveau" } ] },
+  { q:"Où en es-tu ?", opts:[
+    { t:"Je démarre ou je reprends", s:"Moins d'un an d'entraînement régulier", p:{f:2} },
+    { t:"Je m'entraîne depuis 1 à 3 ans", s:"Je progresse mais je veux un cadre", p:{f:1,p:1} },
+    { t:"Je m'entraîne depuis des années, je stagne", s:"Mon corps ne répond plus comme avant", p:{p:1,c:1} } ] },
+  { q:"Comment tu veux être guidé ?", opts:[
+    { t:"Un plan clair, j'avance seul", p:{f:2} },
+    { t:"Un système qui évolue chaque mois", s:"Nouveaux blocs, briefs vidéo, communauté", p:{p:2} },
+    { t:"Un coach qui m'ajuste chaque semaine", s:"100 % sur-mesure", p:{c:2} } ] },
+  { q:"Ton budget ?", opts:[
+    { t:"Un petit paiement, une seule fois", s:"Moins de 100 €", p:{f:2} },
+    { t:"Un abonnement mensuel", s:"39 € / mois, annulable", p:{p:2} },
+    { t:"Je veux investir pour aller vite", s:"Je suis prêt à en parler en appel", p:{c:2} } ] }
+];
+
+const RESULTS = {
+  f:{ name:"Athletic Foundations", why:"Un programme complet de 12 semaines, à ton rythme. Tu l'achètes une fois, il est à toi.",
+      list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours"],
+      price:'<b>97 €</b>paiement unique', page:PAGES.foundations,
+      actions:[{t:"Commencer ma transformation",h:LINKS.foundations}] },
+  p:{ name:"Athletic Protocol", why:"Un nouveau bloc chaque mois, des briefs vidéo, un live Q&A et un club privé. Tu restes tant que ça te sert.",
+      list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
+      price:'<b>39 €</b>/ mois, sans engagement', page:PAGES.protocol,
+      actions:[{t:"Rejoindre à 39 € / mois",h:LINKS.protocolMois},{t:"Plan 3 mois · 97 €",h:LINKS.protocolTri,ghost:1}] },
+  c:{ name:"Coaching 1:1", why:"Un programme construit pour toi et ajusté chaque semaine. On commence par un appel gratuit pour voir si on est faits pour travailler ensemble.",
+      list:["Appel découverte offert avec Quentin","Programme 100 % sur-mesure, sans template","Ajustements hebdomadaires selon tes retours","Garantie résultats 90 jours"],
+      price:'<b>Sur appel</b>places limitées', page:PAGES.coaching,
+      actions:[{t:"Réserver mon appel",h:LINKS.coaching}] }
+};
+
+const stage = document.getElementById("stage");
+let step = 0, score = {f:0,p:0,c:0}, goal = "devenir un athlète complet", hist = [];
+const bar = n => `<div class="progress">${QUESTIONS.map((_,i)=>`<i class="${i<=n?'on':''}"></i>`).join("")}</div>`;
+
+function render(){
+  if(step >= QUESTIONS.length) return result();
+  const Q = QUESTIONS[step];
+  stage.innerHTML = `${bar(step)}
+    <div class="eyebrow">Question ${step+1} / ${QUESTIONS.length}</div>
+    <h2>${Q.q}</h2>
+    <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
+    ${step>0?'<button class="back">← Retour</button>':''}
+    <p class="skip">Tu sais déjà ce que tu veux ?
+      <a href="${PAGES.foundations}">Foundations</a><a href="${PAGES.protocol}">Protocol</a><a href="${PAGES.coaching}">Coaching 1:1</a></p>`;
+  stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
+  const back = stage.querySelector(".back"); if(back) back.onclick=undo;
+}
+function pick(i){
+  const o = QUESTIONS[step].opts[i];
+  hist.push({o, prevGoal:goal});
+  if(o.goal) goal = o.goal;
+  if(o.p) for(const k in o.p) score[k]+=o.p[k];
+  step++; render(); toQuiz();
+}
+function undo(){
+  const h = hist.pop(); step--; goal = h.prevGoal;
+  if(h.o.p) for(const k in h.o.p) score[k]-=h.o.p[k];
+  render(); toQuiz();
+}
+function result(){
+  // plus haut score ; égalité : Protocol > Coaching > Foundations
+  const k = ["p","c","f"].reduce((a,b)=>score[b]>score[a]?b:a);
+  const R = RESULTS[k];
+  stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
+    <span class="pill">Ton format</span>
+    <h2>${R.name}</h2>
+    <p>Pour ${goal}. ${R.why}</p>
+    <ul>${R.list.map(l=>`<li>${l}</li>`).join("")}</ul>
+    <div class="price">${R.price}</div>
+    <div class="actions">${R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}">${a.t}</a>`).join("")}</div>
+    <a class="more" href="${R.page}">Voir le détail du programme →</a>
+    <button class="back" id="redo">Refaire le quiz</button>
+  </div>`;
+  document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
+}
+function toQuiz(){ document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"}); }
+render();
+
+/* ---------- vidéos de la bande : ne se chargent / jouent que lorsqu'elles sont visibles ---------- */
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  const v = e.target;
+  if(e.isIntersecting){ if(!v.src) v.src = v.dataset.src; v.play().catch(()=>{}); } else v.pause();
+}),{threshold:.25});
+document.querySelectorAll(".clips video").forEach(v=>io.observe(v));
+</script>
+</body>
+</html>
