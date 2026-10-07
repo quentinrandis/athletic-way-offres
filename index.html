@@ -122,6 +122,16 @@
   .coach .btn{margin-top:12px}
   @media(max-width:800px){.pains,.benefits,.quotes,.coach{grid-template-columns:1fr}}
 
+  /* POP-UP PAIEMENT */
+  .pay-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.8);backdrop-filter:blur(4px)}
+  .pay-modal.open{display:flex}
+  .pay-box{position:relative;width:min(560px,100%);height:min(780px,100%);background:#fff;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 100px rgba(0,0,0,.6)}
+  .pay-box iframe{flex:1;width:100%;border:0;background:#fff}
+  .pay-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;background:#0a0a0a;color:#a3a3a3;font-size:12px}
+  .pay-bar a{color:#f5f5f5;text-underline-offset:3px}
+  .pay-bar button{all:unset;cursor:pointer;color:#f5f5f5;font-size:22px;line-height:1;padding:2px 8px}
+  body.lock{overflow:hidden}
+
   /* CLIPS */
   .clips{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
   .clips video{width:100%;aspect-ratio:9/14;object-fit:cover;display:block;background:#000}
@@ -239,6 +249,13 @@
   <video muted loop playsinline preload="none" poster="media/poster4.jpg" data-src="media/clip4.mp4"></video>
 </section>
 
+<div class="pay-modal" id="pay" role="dialog" aria-modal="true" aria-label="Paiement sécurisé">
+  <div class="pay-box">
+    <div class="pay-bar"><span>🔒 Paiement sécurisé</span><span><a id="pay-ext" href="#" target="_blank" rel="noopener">Ouvrir dans un nouvel onglet</a></span><button id="pay-close" aria-label="Fermer">×</button></div>
+    <iframe id="pay-frame" title="Paiement" allow="payment *"></iframe>
+  </div>
+</div>
+
 <footer class="pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><span>© 2026 Athletic Way · Fait avec du café, du bench press et un peu trop de passion.</span></footer>
 
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -336,7 +353,7 @@ function result(){
 function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
-  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h===LINKS.coaching?' data-cal':''}>${a.t}</a>`).join("");
+  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h===LINKS.coaching?' data-cal':' data-pay'}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Bienvenue dans la team</span>
@@ -350,8 +367,20 @@ function showResult(k){
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
   stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Calendly && Calendly.initPopupWidget){ e.preventDefault(); Calendly.initPopupWidget({url:LINKS.coaching}); } });
+  if(POPUP_PAY) stage.querySelectorAll("[data-pay]").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
 }
+// Pop-up de paiement : en test uniquement (ajouter ?popup=1 à l'adresse), le temps de valider l'étape Stripe
+const POPUP_PAY = /[?&]popup=1/.test(location.search);
+const payEl = document.getElementById("pay"), payFrame = document.getElementById("pay-frame");
+function openPay(url){
+  payFrame.src = url; document.getElementById("pay-ext").href = url;
+  payEl.classList.add("open"); document.body.classList.add("lock");
+}
+function closePay(){ payEl.classList.remove("open"); document.body.classList.remove("lock"); payFrame.src = "about:blank"; }
+document.getElementById("pay-close").onclick = closePay;
+payEl.addEventListener("click", e=>{ if(e.target===payEl) closePay(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePay(); });
 function toQuiz(){ document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"}); }
 render();
 
