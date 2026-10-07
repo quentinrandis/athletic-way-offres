@@ -32,7 +32,7 @@
   .bar a{color:var(--muted);text-decoration:none;font:500 12px "DM Sans";letter-spacing:.12em;text-transform:uppercase}
   .bar a:hover{color:var(--text)}
   .hero-body{padding-bottom:clamp(40px,7vh,72px);max-width:1000px}
-  .hero h1{font-size:clamp(60px,12vw,150px)}
+  .hero h1{font-size:clamp(56px,11vw,120px)}
   .hero h1 span{color:var(--red)}
   .hero p{margin-top:22px;font-size:clamp(16px,2vw,20px);color:#dcdcdc;max-width:500px}
   .hero .btn{margin-top:32px}
@@ -95,6 +95,15 @@
   footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:32px;padding-bottom:48px;font-size:12px;color:var(--muted)}
   footer img{height:20px}
 
+  /* ordinateur : vidéo verticale nette à droite, texte à gauche */
+  @media(min-width:900px) and (min-aspect-ratio:1/1){
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:auto 1fr;min-height:100vh;min-height:100svh;column-gap:clamp(24px,4vw,64px)}
+    .hero::after{display:none}
+    .bar{grid-column:1/-1}
+    .hero-body{grid-column:1;grid-row:2;align-self:center;padding-bottom:0}
+    .hero h1{font-size:clamp(56px,7.2vw,112px)}
+    .hero video{position:static;z-index:auto;grid-column:2;grid-row:2;align-self:center;justify-self:center;height:min(calc(100svh - 130px),880px);width:auto;max-width:100%;aspect-ratio:9/16;border-radius:14px;margin-right:clamp(20px,5vw,56px);margin-bottom:clamp(20px,4vh,40px);box-shadow:0 0 0 1px var(--line),0 30px 80px rgba(243,61,76,.12)}
+  }
   @media(max-width:700px){.clips{grid-template-columns:repeat(2,1fr)}}
   @media(prefers-reduced-motion:reduce){.hero video,.clips video{display:none}}
 </style>
@@ -102,7 +111,7 @@
 <body>
 
 <header class="hero">
-  <video autoplay muted loop playsinline preload="metadata" poster="media/poster1.jpg" src="media/clip1.mp4"></video>
+  <video autoplay muted loop playsinline preload="metadata" poster="media/hero-poster.jpg" src="media/hero.mp4"></video>
   <div class="bar pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><a href="https://instagram.com/quentinrandis" target="_blank" rel="noopener">@quentinrandis</a></div>
   <div class="hero-body pad">
     <h1>Athlétique.<br>Esthétique.<br><span>Construit pour durer.</span></h1>
