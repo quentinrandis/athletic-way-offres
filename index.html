@@ -26,15 +26,17 @@
   /* HERO */
   .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;isolation:isolate}
   .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;background:#000}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.6) 0%,rgba(10,10,10,.25) 38%,rgba(10,10,10,.95) 100%)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.65) 0%,rgba(10,10,10,.5) 35%,rgba(10,10,10,.96) 100%)}
   .bar{display:flex;justify-content:space-between;align-items:center;padding-top:24px;padding-bottom:24px}
   .bar img{height:26px;display:block}
   .bar a{color:var(--muted);text-decoration:none;font:500 12px "DM Sans";letter-spacing:.12em;text-transform:uppercase}
   .bar a:hover{color:var(--text)}
   .hero-body{padding-bottom:clamp(40px,7vh,72px);max-width:1000px}
+  .badge{display:inline-block;margin-bottom:20px;padding:7px 14px;border:1px solid var(--line);border-radius:99px;background:rgba(10,10,10,.55);backdrop-filter:blur(6px);font:600 11px "DM Sans";letter-spacing:.1em;text-transform:uppercase;color:#e6e6e6;max-width:100%}
+  .hint{color:var(--muted);font-size:14px;margin:-18px 0 28px}
   .hero h1{font-size:clamp(56px,11vw,120px)}
   .hero h1 span{color:var(--red)}
-  .hero p{margin-top:22px;font-size:clamp(16px,2vw,20px);color:#dcdcdc;max-width:500px}
+  .hero p{text-shadow:0 1px 12px rgba(0,0,0,.6);margin-top:22px;font-size:clamp(16px,2vw,20px);color:#dcdcdc;max-width:500px}
   .hero .btn{margin-top:32px}
   .stats{display:flex;flex-wrap:wrap;gap:8px 36px;margin-top:40px}
   .stats div{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -141,9 +143,10 @@
   <video autoplay muted loop playsinline preload="metadata" poster="media/hero-poster.jpg" src="media/hero.mp4"></video>
   <div class="bar pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><a href="https://instagram.com/quentinrandis" target="_blank" rel="noopener">@quentinrandis</a></div>
   <div class="hero-body pad">
+    <div class="badge">500+ mecs et meufs qui s'entraînent sérieusement sans se prendre au sérieux</div>
     <h1>Athlétique.<br>Esthétique.<br><span>Construit pour durer.</span></h1>
-    <p>Arrête de t'entraîner dur pour rien, comme un bolos. 4 questions, 30 secondes : je te dis quel format est fait pour toi. Pas de pincettes, pas de blabla.</p>
-    <a class="btn" href="#quiz">Trouver mon programme</a>
+    <p>Les autres te promettent un corps de rêve en 6 semaines. Moi je te promets du boulot, de la rigolade et des résultats qui tiennent. 4 questions pour trouver ton format.</p>
+    <a class="btn" href="#quiz">Je rejoins la team</a>
     <div class="stats"><div><b>500+</b>transformations</div><div><b>10 ans</b>de coaching</div><div><b>4 pays</b>US · AUS · UK · FR</div></div>
   </div>
 </header>
@@ -201,7 +204,7 @@
     <div class="quote"><div class="stars">★★★★★</div><p>« Je stagnais depuis des mois, sans plaisir ni progrès. Le programme m'a redonné le goût de m'entraîner. J'ai perdu du gras, pris du muscle, et gagné en confiance. »</p><cite>Maurane L.</cite></div>
     <div class="quote"><div class="stars">★★★★★</div><p>« Lassée des programmes "féminins" stéréotypés, j'ai trouvé ici la performance, la bienveillance et une vraie team. »</p><cite>Isa G.</cite></div>
   </div>
-  <p class="lead" style="margin:0 0 24px">Et là, les vrais messages que je reçois. Zéro retouche.</p>
+  <p class="lead" style="margin:0 0 24px">Et là, les vrais messages que je reçois. Zéro retouche. Et non, on les a pas payés.</p>
   <div class="msgs">
     <img src="img/msg1.jpg" alt="Message client" loading="lazy">
     <img src="img/msg2.jpg" alt="Message client" loading="lazy">
@@ -219,6 +222,7 @@
       <p>Ancien joueur de foot US. 10 ans de coaching entre les États-Unis, l'Australie et l'Angleterre. J'ai vu passer beaucoup de monde, et beaucoup de mauvaises idées.</p>
       <p>Ce qui m'énerve dans le fitness classique : tout le monde s'entraîne dur, personne ne réfléchit. On empile du volume, on copie des bodybuilders, et on finit bloqué. Ou blessé.</p>
       <p>Ma méthode, c'est le monde athlétique mélangé à la muscu fonctionnelle. Et je m'entraîne exactement comme je te fais t'entraîner. Je pratique ce que je prêche.</p>
+      <p>Je suis exigeant, mais promis, je mords pas.</p>
       <a class="btn" href="#quiz">Trouver mon programme</a>
     </div>
   </div>
@@ -231,7 +235,7 @@
   <video muted loop playsinline preload="none" poster="media/poster4.jpg" data-src="media/clip4.mp4"></video>
 </section>
 
-<footer class="pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><span>© 2026 Athletic Way · Quentin Randis</span></footer>
+<footer class="pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><span>© 2026 Athletic Way · Fait avec du café, du bench press et un peu trop de passion.</span></footer>
 
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
@@ -283,6 +287,7 @@ const RESULTS = {
       actions:[{t:"Réserver mon appel",h:LINKS.coaching}] }
 };
 
+const HINTS = ['Commence par le plus facile.','Tiens bon, c\'est plus court qu\'une série de squats.','Presque. Pas de triche.','La dernière. Après, tu sais quoi faire.'];
 const stage = document.getElementById("stage");
 let step = 0, score = {f:0,p:0,c:0}, goal = "devenir un athlète complet", hist = [];
 const bar = n => `<div class="progress">${QUESTIONS.map((_,i)=>`<i class="${i<=n?'on':''}"></i>`).join("")}</div>`;
@@ -293,6 +298,7 @@ function render(){
   stage.innerHTML = `${bar(step)}
     <div class="eyebrow">Question ${step+1} sur ${QUESTIONS.length}</div>
     <h2>${Q.q}</h2>
+    <p class="hint">${HINTS[step]}</p>
     <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
     ${step>0?'<button class="back">← Retour</button>':''}
     <p class="skip">Tu sais déjà ce qu'il te faut ?
@@ -321,7 +327,7 @@ function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
-    <span class="pill">C'est pour toi</span>
+    <span class="pill">Bienvenue dans la team</span>
     <h2>${R.name}</h2>
     ${vsl}
     <p>Tu veux ${goal} ? ${R.why}</p>
