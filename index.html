@@ -85,6 +85,10 @@
   .price b{font:400 56px/1 "Bebas Neue";color:var(--text);margin-right:10px}
   .actions{display:flex;flex-wrap:wrap;gap:12px}
   .vsl{position:relative;aspect-ratio:16/9;margin:0 0 24px;border-radius:10px;overflow:hidden;background:#000}
+  .proof-vids{margin-top:44px;padding-top:32px;border-top:1px solid var(--line)}
+  .pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+  .pv-grid .vsl{margin:0}
+  @media(max-width:640px){.pv-grid{grid-template-columns:1fr}}
   .vsl iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
   /* REVIEWS */
@@ -246,6 +250,12 @@ const LINKS = {
   protocolTri:  "https://app.jimmycoach.com/pay/d649ef4d-9f64-4d17-b2e5-237a7074412b",
   coaching:     "https://calendly.com/quentin-randis/meet-avec-quentin"
 };
+const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
+  c: [
+    {id:"OAE3YMvuffvd3I7qEpYhDlgH9gTSyn4IcpK9xTNPS00I", who:"Oli"},
+    {id:"xRkAmwC00Y01700ajeE3014xQ15CynRLTAgonviNltdng5E", who:"Julien"}
+  ]
+};
 const VSL = { // lecteurs vidéo Mux (hébergés chez Mux, indépendants de Lovable)
   f: "mwyvIpbQhjGKj7HBK01q01xH0101G4jzs71Que4py9NoDuk",
   p: "clbqnIWqsB902q00y2Ni2IQIxl00016LD6Nt400bnVCfx1VY"
@@ -326,6 +336,8 @@ function result(){
 function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
+  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h===LINKS.coaching?' data-cal':''}>${a.t}</a>`).join("");
+  const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Bienvenue dans la team</span>
     <h2>${R.name}</h2>
@@ -333,10 +345,11 @@ function showResult(k){
     <p>Tu veux ${goal} ? ${R.why}</p>
     <ul>${R.list.map(l=>`<li>${l}</li>`).join("")}</ul>
     <div class="price">${R.price}</div>
-    <div class="actions">${R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h===LINKS.coaching?' data-cal':''}>${a.t}</a>`).join("")}</div>
+    <div class="actions">${actions}</div>
+    ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
-  stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Calendly){ e.preventDefault(); Calendly.initPopupWidget({url:LINKS.coaching}); } });
+  stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Calendly && Calendly.initPopupWidget){ e.preventDefault(); Calendly.initPopupWidget({url:LINKS.coaching}); } });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
 }
 function toQuiz(){ document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"}); }
