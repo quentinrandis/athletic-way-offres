@@ -53,6 +53,7 @@
   .ba span.after{background:var(--red)}
   .ba p{padding:12px 14px;font-size:13px;color:var(--muted)}
   .ba p b{color:var(--text);font-weight:600}
+  .ba p strong{display:block;margin-top:4px;font:400 22px/1.1 "Bebas Neue";letter-spacing:.02em;color:var(--red)}
 
   /* QUIZ */
   .quiz-wrap{background:var(--panel);margin-top:48px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -86,8 +87,34 @@
 
   /* REVIEWS */
   .reviews{padding-top:clamp(64px,10vh,110px);padding-bottom:64px}
+  .block .msgs{margin-top:8px}
   .msgs{columns:3 260px;column-gap:14px}
   .msgs img{width:100%;display:block;border-radius:10px;margin-bottom:14px;break-inside:avoid}
+
+
+  /* BLOCS CONTENU */
+  .block{padding-top:clamp(64px,10vh,110px)}
+  .block h2{font-size:clamp(40px,6vw,72px);margin-bottom:28px;max-width:900px}
+  .block .lead{color:#dcdcdc;font-size:18px;max-width:640px;margin:-8px 0 32px}
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .pain{border-top:2px solid var(--red);padding-top:16px}
+  .pain h3{font-size:28px;margin-bottom:8px}
+  .pain p{color:var(--muted);font-size:15px}
+  .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .benefit{background:var(--bg);padding:28px 24px}
+  .benefit h3{font-size:26px;margin-bottom:8px;color:var(--text)}
+  .benefit h3::before{content:"";display:block;width:28px;height:3px;background:var(--red);margin-bottom:14px}
+  .benefit p{color:var(--muted);font-size:15px}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+  .quote{background:var(--panel);border-radius:10px;padding:24px}
+  .quote .stars{color:var(--red);letter-spacing:.2em;font-size:13px;margin-bottom:10px}
+  .quote p{font-size:15px;color:#e6e6e6}
+  .quote cite{display:block;margin-top:14px;font-style:normal;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .coach{display:grid;grid-template-columns:minmax(220px,380px) 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+  .coach img{width:100%;border-radius:12px;display:block}
+  .coach p{color:#dcdcdc;font-size:17px;margin-bottom:16px;max-width:560px}
+  .coach .btn{margin-top:12px}
+  @media(max-width:800px){.pains,.benefits,.quotes,.coach{grid-template-columns:1fr}}
 
   /* CLIPS */
   .clips{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
@@ -121,17 +148,41 @@
   </div>
 </header>
 
+<section class="block pad">
+  <div class="eyebrow">Le constat</div>
+  <h2>Le problème n'est pas ta motivation.<br>C'est ton système.</h2>
+  <div class="pains">
+    <div class="pain"><h3>Ton cardio lâche</h3><p>Tu soulèves lourd, mais sous fatigue ou après une grosse semaine, ton moteur t'abandonne. Tu n'as jamais structuré ton conditionnement.</p></div>
+    <div class="pain"><h3>Plus de muscle, moins de vivacité</h3><p>Les approches classiques construisent un corps plus lourd mais moins utile : plus raide, moins vif, plus fragile.</p></div>
+    <div class="pain"><h3>Et à 40 ans ?</h3><p>Sans logique d'ensemble, la fatigue s'empile, puis les douleurs. Le but : rester solide, mobile et performant pendant 10 ou 20 ans.</p></div>
+  </div>
+</section>
+
+<section class="block pad">
+  <div class="eyebrow">Ce que tu deviens</div>
+  <h2>Un athlète complet.<br>Fort, explosif, durable.</h2>
+  <p class="lead">Le physique d'un bodybuilder, les capacités d'un athlète. Pas l'un ou l'autre : les deux. Les bénéfices sont les mêmes quel que soit le format que tu choisis.</p>
+  <div class="benefits">
+    <div class="benefit"><h3>Force fonctionnelle</h3><p>Pas juste de la masse : de la puissance qui sert, sur le terrain comme dans la vraie vie.</p></div>
+    <div class="benefit"><h3>Endurance et moteur</h3><p>Cardio structuré, VO2 max, capacité à encaisser. Tu n'es plus essoufflé quand ça compte.</p></div>
+    <div class="benefit"><h3>Explosivité</h3><p>Vitesse de démarrage, puissance dans les appuis. Ce que le fitness classique oublie.</p></div>
+    <div class="benefit"><h3>Mobilité et longévité</h3><p>Des articulations qui tiennent 20 ans de plus, sans sacrifier ton quotidien pour t'entraîner.</p></div>
+    <div class="benefit"><h3>Capacité de travail</h3><p>Tu encaisses plus, plus longtemps. Ton corps répond pareil à la fin qu'au début.</p></div>
+    <div class="benefit"><h3>Constance malgré les contraintes</h3><p>Un système qui tourne même avec un planning chargé ou qui change du jour au lendemain.</p></div>
+  </div>
+</section>
+
 <section class="results pad">
   <div class="eyebrow">Résultats</div>
   <h2>Des vrais gars.<br>Des vrais emplois du temps.</h2>
   <div class="rail">
-    <article class="ba"><div class="pair"><div><img src="img/mateo_before.jpg" alt="Mateo avant" loading="lazy"><span>AVANT</span></div><div><img src="img/mateo_after.jpg" alt="Mateo après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Mateo V.</b> · Pompier</p></article>
-    <article class="ba"><div class="pair"><div><img src="img/thomas_r_before.jpg" alt="Thomas avant" loading="lazy"><span>AVANT</span></div><div><img src="img/thomas_r_after.jpg" alt="Thomas après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Thomas R.</b> · Pompier</p></article>
-    <article class="ba"><div class="pair"><div><img src="img/tom_before.jpg" alt="Tom avant" loading="lazy"><span>AVANT</span></div><div><img src="img/tom_after.jpg" alt="Tom après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Tom T.</b> · Agriculteur &amp; arts martiaux</p></article>
-    <article class="ba"><div class="pair"><div><img src="img/quentin_before.jpg" alt="Quentin avant" loading="lazy"><span>AVANT</span></div><div><img src="img/quentin_after.jpg" alt="Quentin après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Quentin M.</b> · Chef de chantier</p></article>
-    <article class="ba"><div class="pair"><div><img src="img/thomas_m_before.jpg" alt="Thomas avant" loading="lazy"><span>AVANT</span></div><div><img src="img/thomas_m_after.jpg" alt="Thomas après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Thomas M.</b> · Commercial terrain</p></article>
-    <article class="ba"><div class="pair"><div><img src="img/tim_before.jpg" alt="Timothée avant" loading="lazy"><span>AVANT</span></div><div><img src="img/tim_after.jpg" alt="Timothée après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Timothée L.</b> · Acheteur</p></article>
-    <article class="ba"><div class="pair"><div><img src="img/qr_before.jpg" alt="Quentin Randis avant" loading="lazy"><span>AVANT</span></div><div><img src="img/qr_after.jpg" alt="Quentin Randis après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Quentin Randis</b> · Ex-foot US, ton coach</p></article>
+    <article class="ba"><div class="pair"><div><img src="img/mateo_before.jpg" alt="Mateo avant" loading="lazy"><span>AVANT</span></div><div><img src="img/mateo_after.jpg" alt="Mateo après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Mateo V.</b> · Pompier<strong>+7 kg de muscle en 6 mois</strong></p></article>
+    <article class="ba"><div class="pair"><div><img src="img/thomas_r_before.jpg" alt="Thomas avant" loading="lazy"><span>AVANT</span></div><div><img src="img/thomas_r_after.jpg" alt="Thomas après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Thomas R.</b> · Pompier<strong>+6 kg de muscle en 3 mois</strong></p></article>
+    <article class="ba"><div class="pair"><div><img src="img/tom_before.jpg" alt="Tom avant" loading="lazy"><span>AVANT</span></div><div><img src="img/tom_after.jpg" alt="Tom après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Tom T.</b> · Agriculteur &amp; arts martiaux<strong>+5 kg de muscle en 3 mois</strong></p></article>
+    <article class="ba"><div class="pair"><div><img src="img/quentin_before.jpg" alt="Quentin avant" loading="lazy"><span>AVANT</span></div><div><img src="img/quentin_after.jpg" alt="Quentin après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Quentin M.</b> · Chef de chantier<strong>−12 kg de gras en 4 mois</strong></p></article>
+    <article class="ba"><div class="pair"><div><img src="img/thomas_m_before.jpg" alt="Thomas avant" loading="lazy"><span>AVANT</span></div><div><img src="img/thomas_m_after.jpg" alt="Thomas après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Thomas M.</b> · Commercial terrain<strong>+7 kg de muscle en 4 mois</strong></p></article>
+    <article class="ba"><div class="pair"><div><img src="img/tim_before.jpg" alt="Timothée avant" loading="lazy"><span>AVANT</span></div><div><img src="img/tim_after.jpg" alt="Timothée après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Timothée L.</b> · Acheteur<strong>+5 kg de muscle en 6 mois</strong></p></article>
+    <article class="ba"><div class="pair"><div><img src="img/qr_before.jpg" alt="Quentin Randis avant" loading="lazy"><span>AVANT</span></div><div><img src="img/qr_after.jpg" alt="Quentin Randis après" loading="lazy"><span class="after">APRÈS</span></div></div><p><b>Quentin Randis</b> · Ex-foot US, ton coach<strong>85 kg → 80 kg, sec</strong></p></article>
   </div>
 </section>
 
@@ -139,14 +190,36 @@
   <main class="quiz" id="quiz" aria-live="polite"><div id="stage"></div></main>
 </div>
 
-<section class="reviews pad">
-  <div class="eyebrow">Ce qu'ils t'écrivent</div>
-  <h2>Messages non retouchés</h2>
+<section class="block pad">
+  <div class="eyebrow">Avis</div>
+  <h2>Ils l'ont fait.<br>À ton tour.</h2>
+  <div class="quotes">
+    <div class="quote"><div class="stars">★★★★★</div><p>« Avec les gardes de 24h et le rythme de la caserne, j'avais zéro régularité. En 3 mois j'ai pris 6 kg de muscle avec 3 séances par semaine, même quand mon planning changeait du jour au lendemain. »</p><cite>Thomas R. · Pompier</cite></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>« J'ai fait plus de progrès en quelques mois qu'en des années à m'entraîner seul. J'ai perdu 12 kg de masse grasse, construit du muscle et amélioré ma force, mon endurance et ma mobilité. »</p><cite>Quentin M. · Chef de chantier</cite></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>« Agriculteur avec un emploi du temps de dingue, et malgré ça +5 kg de muscle en 3 mois. Le format full body s'adapte à ma vie, pas l'inverse. »</p><cite>Tom T. · Agriculteur</cite></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>« En 1 an avec Quentin j'ai vu une meilleure progression qu'en 4 de musculation : meilleur physique, moins de douleur au dos, plus de puissance. »</p><cite>Loick P.</cite></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>« Je stagnais depuis des mois, sans plaisir ni progrès. Le programme m'a redonné le goût de m'entraîner. J'ai perdu du gras, pris du muscle, et gagné en confiance. »</p><cite>Maurane L.</cite></div>
+    <div class="quote"><div class="stars">★★★★★</div><p>« Lassée des programmes "féminins" stéréotypés, j'ai trouvé ici la performance, la bienveillance et une vraie team. »</p><cite>Isa G.</cite></div>
+  </div>
   <div class="msgs">
     <img src="img/msg1.jpg" alt="Message client" loading="lazy">
     <img src="img/msg2.jpg" alt="Message client" loading="lazy">
     <img src="img/msg3.jpg" alt="Message client" loading="lazy">
     <img src="img/msg4.jpg" alt="Message client" loading="lazy">
+  </div>
+</section>
+
+<section class="block pad" style="padding-bottom:64px">
+  <div class="coach">
+    <img src="img/coach_action.jpg" alt="Quentin Randis" loading="lazy">
+    <div>
+      <div class="eyebrow">Ton coach</div>
+      <h2 style="margin-bottom:20px">Quentin Randis</h2>
+      <p>Ancien joueur de football américain. 10 ans de coaching entre les États-Unis, l'Australie et l'Angleterre.</p>
+      <p>Ce qui m'a toujours frustré dans le fitness classique : les gens s'entraînent dur, mais sans intelligence. Ils accumulent du volume, imitent des bodybuilders, et stagnent, ou se blessent.</p>
+      <p>Ma méthode est à l'intersection du monde athlétique et de la musculation fonctionnelle. Je m'entraîne exactement comme je te fais t'entraîner.</p>
+      <a class="btn" href="#quiz">Trouver mon programme</a>
+    </div>
   </div>
 </section>
 
