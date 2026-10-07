@@ -6,6 +6,7 @@
 <title>Athletic Way — Trouve ton programme</title>
 <meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Protocol ou coaching 1:1).">
 <link rel="icon" type="image/svg+xml" href="img/aw-logo-red.svg">
+<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -80,8 +81,8 @@
   .price{margin:26px 0 22px;color:var(--muted);font-size:14px}
   .price b{font:400 56px/1 "Bebas Neue";color:var(--text);margin-right:10px}
   .actions{display:flex;flex-wrap:wrap;gap:12px}
-  .more{display:block;margin-top:18px;font-size:13px;color:var(--muted);text-underline-offset:4px}
-  .more:hover{color:var(--text)}
+  .vsl{position:relative;aspect-ratio:16/9;margin:0 0 24px;border-radius:10px;overflow:hidden;background:#000}
+  .vsl iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
   /* REVIEWS */
   .reviews{padding-top:clamp(64px,10vh,110px);padding-bottom:64px}
@@ -149,6 +150,7 @@
 
 <footer class="pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><span>© 2026 Athletic Way · Quentin Randis</span></footer>
 
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
 /* ---------- LIENS ---------- */
 const LINKS = {
@@ -157,10 +159,9 @@ const LINKS = {
   protocolTri:  "https://app.jimmycoach.com/pay/d649ef4d-9f64-4d17-b2e5-237a7074412b",
   coaching:     "https://calendly.com/quentin-randis/meet-avec-quentin"
 };
-const PAGES = { // pages de vente détaillées ("En savoir plus")
-  foundations: "https://fondation.quentinrandis.com/",
-  protocol:    "https://club.quentinrandis.com/",
-  coaching:    "https://coaching.quentinrandis.com/"
+const VSL = { // lecteurs vidéo Mux (hébergés chez Mux, indépendants de Lovable)
+  f: "mwyvIpbQhjGKj7HBK01q01xH0101G4jzs71Que4py9NoDuk",
+  p: "clbqnIWqsB902q00y2Ni2IQIxl00016LD6Nt400bnVCfx1VY"
 };
 
 /* ---------- QUIZ : f = Foundations, p = Protocol, c = Coaching ---------- */
@@ -169,7 +170,7 @@ const QUESTIONS = [
     { t:"Être plus fort", goal:"devenir plus fort" },
     { t:"Prendre du muscle, un physique dessiné", goal:"construire du muscle" },
     { t:"Être plus athlétique", s:"Force, explosivité, endurance, mobilité", goal:"devenir un athlète complet" },
-    { t:"Me sécher", goal:"te sécher sans perdre ton niveau" } ] },
+    { t:"Perdre du poids", goal:"perdre du poids" } ] },
   { q:"Où en es-tu ?", opts:[
     { t:"Je démarre ou je reprends", s:"Moins d'un an d'entraînement régulier", p:{f:2} },
     { t:"Je m'entraîne depuis 1 à 3 ans", s:"Je progresse mais je veux un cadre", p:{f:1,p:1} },
@@ -187,15 +188,15 @@ const QUESTIONS = [
 const RESULTS = {
   f:{ name:"Athletic Foundations", why:"Un programme complet de 12 semaines, à ton rythme. Tu l'achètes une fois, il est à toi.",
       list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours"],
-      price:'<b>97 €</b>paiement unique', page:PAGES.foundations,
+      price:'<b>97 €</b>paiement unique',
       actions:[{t:"Commencer ma transformation",h:LINKS.foundations}] },
   p:{ name:"Athletic Protocol", why:"Un nouveau bloc chaque mois, des briefs vidéo, un live Q&A et un club privé. Tu restes tant que ça te sert.",
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
-      price:'<b>39 €</b>/ mois, sans engagement', page:PAGES.protocol,
+      price:'<b>39 €</b>/ mois, sans engagement',
       actions:[{t:"Rejoindre à 39 € / mois",h:LINKS.protocolMois},{t:"Plan 3 mois · 97 €",h:LINKS.protocolTri,ghost:1}] },
   c:{ name:"Coaching 1:1", why:"Un programme construit pour toi et ajusté chaque semaine. On commence par un appel gratuit pour voir si on est faits pour travailler ensemble.",
       list:["Appel découverte offert avec Quentin","Programme 100 % sur-mesure, sans template","Ajustements hebdomadaires selon tes retours","Garantie résultats 90 jours"],
-      price:'<b>Sur appel</b>places limitées', page:PAGES.coaching,
+      price:'<b>Sur appel</b>places limitées',
       actions:[{t:"Réserver mon appel",h:LINKS.coaching}] }
 };
 
@@ -212,7 +213,8 @@ function render(){
     <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
     ${step>0?'<button class="back">← Retour</button>':''}
     <p class="skip">Tu sais déjà ce que tu veux ?
-      <a href="${PAGES.foundations}">Foundations</a><a href="${PAGES.protocol}">Protocol</a><a href="${PAGES.coaching}">Coaching 1:1</a></p>`;
+      <a href="#" data-go="f">Foundations</a><a href="#" data-go="p">Protocol</a><a href="#" data-go="c">Coaching 1:1</a></p>`;
+  stage.querySelectorAll("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();showResult(a.dataset.go);toQuiz();});
   stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
   const back = stage.querySelector(".back"); if(back) back.onclick=undo;
 }
@@ -230,18 +232,22 @@ function undo(){
 }
 function result(){
   // plus haut score ; égalité : Protocol > Coaching > Foundations
-  const k = ["p","c","f"].reduce((a,b)=>score[b]>score[a]?b:a);
+  showResult(["p","c","f"].reduce((a,b)=>score[b]>score[a]?b:a));
+}
+function showResult(k){
   const R = RESULTS[k];
+  const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Ton format</span>
     <h2>${R.name}</h2>
+    ${vsl}
     <p>Pour ${goal}. ${R.why}</p>
     <ul>${R.list.map(l=>`<li>${l}</li>`).join("")}</ul>
     <div class="price">${R.price}</div>
-    <div class="actions">${R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}">${a.t}</a>`).join("")}</div>
-    <a class="more" href="${R.page}">Voir le détail du programme →</a>
+    <div class="actions">${R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h===LINKS.coaching?' data-cal':''}>${a.t}</a>`).join("")}</div>
     <button class="back" id="redo">Refaire le quiz</button>
   </div>`;
+  stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Calendly){ e.preventDefault(); Calendly.initPopupWidget({url:LINKS.coaching}); } });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
 }
 function toQuiz(){ document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"}); }
