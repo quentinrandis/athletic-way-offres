@@ -82,6 +82,7 @@
   .result li{padding-left:28px;position:relative;font-size:15.5px}
   .result li::before{content:"";position:absolute;left:0;top:11px;width:13px;height:2px;background:var(--red)}
   .price{margin:26px 0 22px;color:var(--muted);font-size:14px}
+  .price s{font:400 34px/1 "Bebas Neue";color:var(--muted);margin-right:12px;text-decoration-color:var(--red);text-decoration-thickness:2px}
   .price b{font:400 56px/1 "Bebas Neue";color:var(--text);margin-right:10px}
   .actions{display:flex;flex-wrap:wrap;gap:12px}
   .vsl{position:relative;aspect-ratio:16/9;margin:0 0 24px;border-radius:10px;overflow:hidden;background:#000}
@@ -302,11 +303,11 @@ const QUESTIONS = [
 const RESULTS = {
   f:{ name:"Athletic Foundations", why:"12 semaines, un plan clair, et tu fais le job. Tu l'achètes une fois, c'est à toi pour la vie.",
       list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours"],
-      price:'<b>97 €</b>paiement unique',
+      price:'<s>197 €</s><b>97 €</b>paiement unique',
       actions:[{t:"Commencer ma transformation",h:LINKS.foundations}] },
   p:{ name:"Athletic Protocol", why:"Un nouveau bloc tous les mois, des briefs vidéo, un live avec moi et une team qui te tire vers le haut. Tu restes tant que ça te sert, tu pars quand tu veux.",
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
-      price:'<b>39 €</b>/ mois, sans engagement',
+      price:'<s>59 €</s><b>39 €</b>/ mois, sans engagement',
       actions:[{t:"Rejoindre à 39 € / mois",h:LINKS.protocolMois},{t:"Plan 3 mois · 97 €",h:LINKS.protocolTri,ghost:1}] },
   c:{ name:"Coaching 1:1", why:"Un programme fait pour toi et ajusté chaque semaine. On commence par un appel gratuit : on voit si on s'entend, et si je peux vraiment t'aider.",
       list:["Appel découverte offert avec Quentin","Programme 100 % sur-mesure, sans template","Ajustements hebdomadaires selon tes retours","Garantie résultats 90 jours"],
