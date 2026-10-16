@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Athletic Way — Trouve ton programme</title>
-<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Protocol ou coaching 1:1).">
+<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Engine, Protocol ou coaching 1:1).">
 <link rel="icon" type="image/svg+xml" href="img/aw-logo-red.svg">
 <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -204,6 +204,61 @@
   </div>
 </section>
 
+<section class="block pad" id="parcours">
+  <style>
+    #parcours .path{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+    #parcours .step{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px 20px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
+    #parcours .step:hover{border-color:var(--red);transform:translateY(-2px)}
+    #parcours .num{font-family:"Bebas Neue",Impact,sans-serif;color:var(--red);font-size:15px;letter-spacing:.12em}
+    #parcours .step h3{font-family:"Bebas Neue",Impact,sans-serif;font-size:30px;line-height:1;margin:0;font-weight:400}
+    #parcours .dur{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    #parcours .step p{font-size:15px;color:var(--muted);margin:4px 0 0;line-height:1.5}
+    #parcours .go{margin-top:auto;padding-top:10px;font-size:14px}
+    #parcours .step.new{border-color:var(--red)}
+    #parcours .tag{align-self:flex-start;background:var(--red);color:#fff;font-size:11px;padding:3px 8px;border-radius:3px;letter-spacing:.1em;text-transform:uppercase}
+    #parcours .solo{margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px dashed var(--line);border-radius:6px;padding:16px 20px;font-size:15px;color:var(--muted)}
+    #parcours .solo a{color:var(--text)}
+    #parcours .cta{margin-top:22px;font-size:15px;color:var(--muted)}
+    #parcours .cta a{color:var(--red)}
+    @media (max-width:760px){#parcours .path{grid-template-columns:1fr}}
+  </style>
+
+  <h2>Ton parcours. Étape par étape.</h2>
+  <p style="color:var(--muted);max-width:560px">Tu commences là où tu es. Chaque programme prépare le suivant.</p>
+
+  <div class="path">
+    <a class="step" href="#foundations">
+      <span class="num">01</span>
+      <h3>Athletic Foundations</h3>
+      <span class="dur">12 semaines · paiement unique</span>
+      <p>Tu poses les bases. Tu sprintes, tu sautes, tu deviens plus fort. Test de force en semaine 12.</p>
+      <span class="go">Voir Foundations →</span>
+    </a>
+    <a class="step new" href="#engine">
+      <span class="tag">Nouveau</span>
+      <span class="num">02</span>
+      <h3>Athletic Engine</h3>
+      <span class="dur">12 semaines · la suite directe</span>
+      <p>Tu construis le moteur. Plus de puissance, plus de vitesse, plus de caisse. Nouveau test en semaine 12.</p>
+      <span class="go">Voir Engine →</span>
+    </a>
+    <a class="step" href="#protocol">
+      <span class="num">03</span>
+      <h3>Athletic Protocol</h3>
+      <span class="dur">Chaque mois · sans engagement</span>
+      <p>Tu continues avec la team. Un nouveau bloc chaque mois, des briefs vidéo, un live avec moi.</p>
+      <span class="go">Voir Protocol →</span>
+    </a>
+  </div>
+
+  <div class="solo">
+    <span>Tu veux qu'on le fasse ensemble, ajusté chaque semaine ?</span>
+    <a href="#coaching">Coaching 1:1 →</a>
+  </div>
+
+  <p class="cta">Tu sais pas par où commencer ? <a href="#quiz">4 questions, 30 secondes →</a></p>
+</section>
+
 <div class="quiz-wrap">
   <main class="quiz" id="quiz" aria-live="polite"><div id="stage"></div></main>
 </div>
@@ -266,6 +321,7 @@ const LINKS = {
   foundations:  "https://app.jimmycoach.com/pay/e9LGJoYY",
   protocolMois: "https://app.jimmycoach.com/pay/2tJPJQz4",
   protocolTri:  "https://app.jimmycoach.com/pay/EUAGyP5b",
+  engine:       "PLACEHOLDER_LIEN_PAIEMENT_ENGINE",
   coaching:     "https://calendly.com/quentin-randis/meet-avec-quentin"
 };
 const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
@@ -277,9 +333,10 @@ const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
 const VSL = { // lecteurs vidéo Mux (hébergés chez Mux, indépendants de Lovable)
   f: "mwyvIpbQhjGKj7HBK01q01xH0101G4jzs71Que4py9NoDuk",
   p: "clbqnIWqsB902q00y2Ni2IQIxl00016LD6Nt400bnVCfx1VY"
+  // e: "PLACEHOLDER_ID_MUX_ENGINE", // à décommenter (et virgule après la ligne p) quand la vidéo existe
 };
 
-/* ---------- QUIZ : f = Foundations, p = Protocol, c = Coaching ---------- */
+/* ---------- QUIZ : f = Foundations, e = Engine, p = Protocol, c = Coaching ---------- */
 const QUESTIONS = [
   { q:"Alors, tu veux quoi ?", opts:[
     { t:"Être plus fort", goal:"devenir plus fort" },
@@ -289,7 +346,8 @@ const QUESTIONS = [
   { q:"T'en es où ?", opts:[
     { t:"Je démarre ou je reprends", s:"Moins d'un an de vrai entraînement", p:{f:2} },
     { t:"Ça fait 1 à 3 ans que je m'entraîne", s:"Ça avance, mais j'aimerais un cadre", p:{f:1,p:1} },
-    { t:"Ça fait des années et je stagne", s:"Mon corps ne répond plus comme avant", p:{p:1,c:1} } ] },
+    { t:"Ça fait des années et je stagne", s:"Mon corps ne répond plus comme avant", p:{p:1,c:1} },
+    { t:"J'ai fini Foundations", s:"Ou je m'entraîne déjà en athlète : sprint, sauts, force", p:{f:2}, lvl:"adv" } ] },
   { q:"Tu fonctionnes comment ?", opts:[
     { t:"Donne-moi un plan, je me débrouille", p:{f:2} },
     { t:"Un système qui évolue, avec une team", s:"Nouveau bloc chaque mois, briefs vidéo, communauté", p:{p:2} },
@@ -302,9 +360,18 @@ const QUESTIONS = [
 
 const RESULTS = {
   f:{ name:"Athletic Foundations", why:"12 semaines, un plan clair, et tu fais le job. Tu l'achètes une fois, c'est à toi pour la vie.",
-      list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours"],
+      list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours","Et après ? Athletic Engine prend le relais"],
       price:'<s>197 €</s><b>97 €</b>paiement unique',
-      actions:[{t:"Commencer ma transformation",h:LINKS.foundations}] },
+      actions:[{t:"Commencer ma transformation",h:LINKS.foundations},{t:"Voir la suite : Engine",h:"#engine",ghost:true}] },
+  e:{ name:"Athletic Engine",
+      why:"La suite directe de Foundations. Les bases sont posées. Maintenant on construit le moteur. 12 semaines, et un nouveau test pour voir le chemin parcouru.",
+      list:["12 semaines en 3 phases, dans la continuité de Foundations",
+            "PLACEHOLDER séances / semaine, moins d'une heure",
+            "Plus de puissance, plus de vitesse, plus de caisse",
+            "Nouveau test de force en semaine 12",
+            "Bonus premiers inscrits : 15 min d'appel avec moi"],
+      price:'<b>PLACEHOLDER €</b>paiement unique',
+      actions:[{t:"Lancer Engine",h:LINKS.engine}] },
   p:{ name:"Athletic Protocol", why:"Un nouveau bloc tous les mois, des briefs vidéo, un live avec moi et une team qui te tire vers le haut. Tu restes tant que ça te sert, tu pars quand tu veux.",
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
       price:'<s>59 €</s><b>39 €</b>/ mois, sans engagement',
@@ -330,7 +397,7 @@ function render(){
     <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
     ${step>0?'<button class="back">← Retour</button>':''}
     <p class="skip">Tu sais déjà ce qu'il te faut ?
-      <a href="#" data-go="f">Foundations</a><a href="#" data-go="p">Protocol</a><a href="#" data-go="c">Coaching 1:1</a></p>`;
+      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a><a href="#" data-go="p">Protocol</a><a href="#" data-go="c">Coaching 1:1</a></p>`;
   stage.querySelectorAll("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();showResult(a.dataset.go);toQuiz();});
   stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
   const back = stage.querySelector(".back"); if(back) back.onclick=undo;
@@ -349,12 +416,14 @@ function undo(){
 }
 function result(){
   // plus haut score ; égalité : Protocol > Coaching > Foundations
-  showResult(["p","c","f"].reduce((a,b)=>score[b]>score[a]?b:a));
+  let k = ["p","c","f"].reduce((a,b)=>score[b]>score[a]?b:a);
+  if (k === "f" && hist.some(h => h.o.lvl === "adv")) k = "e";
+  showResult(k);
 }
 function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
-  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h===LINKS.coaching?' data-cal':' data-pay'}>${a.t}</a>`).join("");
+  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal' : ' data-pay')}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Bienvenue dans la team</span>
@@ -384,6 +453,15 @@ payEl.addEventListener("click", e=>{ if(e.target===payEl) closePay(); });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePay(); });
 function toQuiz(){ document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"}); }
 render();
+
+/* ---------- liens directs : /#engine ouvre la fiche Engine ---------- */
+const HASH = { foundations:"f", engine:"e", protocol:"p", coaching:"c" };
+function openFromHash(){
+  const k = HASH[location.hash.slice(1)];
+  if (k) { showResult(k); toQuiz(); }
+}
+window.addEventListener("hashchange", openFromHash);
+openFromHash();
 
 /* ---------- vidéos de la bande : ne se chargent / jouent que lorsqu'elles sont visibles ---------- */
 const io = new IntersectionObserver(es=>es.forEach(e=>{
