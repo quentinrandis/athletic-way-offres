@@ -206,7 +206,7 @@
 
 <section class="block pad" id="parcours">
   <style>
-    #parcours .path{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+    #parcours .path{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
     #parcours .step{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px 20px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
     #parcours .step:hover{border-color:var(--red);transform:translateY(-2px)}
     #parcours .num{font-family:"Bebas Neue",Impact,sans-serif;color:var(--red);font-size:15px;letter-spacing:.12em}
@@ -216,10 +216,9 @@
     #parcours .go{margin-top:auto;padding-top:10px;font-size:14px}
     #parcours .step.new{border-color:var(--red)}
     #parcours .tag{align-self:flex-start;background:var(--red);color:#fff;font-size:11px;padding:3px 8px;border-radius:3px;letter-spacing:.1em;text-transform:uppercase}
-    #parcours .solo{margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px dashed var(--line);border-radius:6px;padding:16px 20px;font-size:15px;color:var(--muted)}
-    #parcours .solo a{color:var(--text)}
     #parcours .cta{margin-top:22px;font-size:15px;color:var(--muted)}
     #parcours .cta a{color:var(--red)}
+    @media (max-width:1000px){#parcours .path{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:760px){#parcours .path{grid-template-columns:1fr}}
   </style>
 
@@ -249,11 +248,13 @@
       <p>Tu continues avec la team. Un nouveau bloc chaque mois, des briefs vidéo, un live avec moi.</p>
       <span class="go">Voir Protocol →</span>
     </a>
-  </div>
-
-  <div class="solo">
-    <span>Tu veux qu'on le fasse ensemble, ajusté chaque semaine ?</span>
-    <a href="#coaching">Coaching 1:1 →</a>
+    <a class="step" href="#coaching">
+      <span class="num">04</span>
+      <h3>Coaching 1:1</h3>
+      <span class="dur">Sur appel · places limitées</span>
+      <p>On le fait ensemble. Programme sur-mesure, ajusté chaque semaine.</p>
+      <span class="go">Voir le Coaching →</span>
+    </a>
   </div>
 
   <p class="cta">Tu sais pas par où commencer ? <a href="#quiz">4 questions, 30 secondes →</a></p>
@@ -347,7 +348,7 @@ const QUESTIONS = [
     { t:"Je démarre ou je reprends", s:"Moins d'un an de vrai entraînement", p:{f:2} },
     { t:"Ça fait 1 à 3 ans que je m'entraîne", s:"Ça avance, mais j'aimerais un cadre", p:{f:1,p:1} },
     { t:"Ça fait des années et je stagne", s:"Mon corps ne répond plus comme avant", p:{p:1,c:1} },
-    { t:"J'ai fini Foundations", s:"Ou je m'entraîne déjà en athlète : sprint, sauts, force", p:{f:2}, lvl:"adv" } ] },
+    { t:"J'ai déjà fait Athletic Foundations", s:"Ou je m'entraîne déjà en athlète : sprint, sauts, force", p:{f:2}, lvl:"adv" } ] },
   { q:"Tu fonctionnes comment ?", opts:[
     { t:"Donne-moi un plan, je me débrouille", p:{f:2} },
     { t:"Un système qui évolue, avec une team", s:"Nouveau bloc chaque mois, briefs vidéo, communauté", p:{p:2} },
