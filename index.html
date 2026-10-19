@@ -315,6 +315,10 @@
 <footer class="pad"><img src="img/athletic-way-white.svg" alt="Athletic Way"><span>© 2026 Athletic Way · Fait avec du café, du bench press et un peu trop de passion.</span></footer>
 
 <script>
+(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+Cal("init", {origin:"https://app.cal.com"});
+</script>
+<script>
 /* ---------- LIENS ---------- */
 const LINKS = {
   foundations:  "https://app.jimmycoach.com/pay/e9LGJoYY",
@@ -323,6 +327,7 @@ const LINKS = {
   engine:       "https://app.jimmycoach.com/pay/mtbYnKkr",
   coaching:     "https://cal.com/jimmycoach/free30"
 };
+const CAL_LINK = "jimmycoach/free30"; // pop-up de réservation cal.com (si le script ne charge pas, le lien s'ouvre dans un nouvel onglet)
 const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
   c: [
     {id:"OAE3YMvuffvd3I7qEpYhDlgH9gTSyn4IcpK9xTNPS00I", who:"Oli"},
@@ -421,7 +426,7 @@ function result(){
 function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
-  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
+  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Bienvenue dans la team</span>
@@ -434,6 +439,7 @@ function showResult(k){
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
+  stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Cal && Cal.loaded){ e.preventDefault(); Cal("modal",{calLink:CAL_LINK,config:{layout:"month_view",theme:"dark"}}); } });
   if(POPUP_PAY) stage.querySelectorAll("[data-pay]").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
 }
