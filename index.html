@@ -90,6 +90,9 @@
   .pv-grid .vsl{margin:0}
   @media(max-width:640px){.pv-grid{grid-template-columns:1fr}}
   .vsl iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .vsl-tap{all:unset;position:absolute;inset:0;z-index:2;cursor:pointer;display:flex;align-items:flex-end;justify-content:flex-start;padding:14px;box-sizing:border-box}
+  .vsl-tap span{background:rgba(10,10,10,.75);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:99px;padding:8px 16px;font:600 12px "DM Sans";letter-spacing:.08em;text-transform:uppercase;color:#fff}
+  .vsl-tap:hover span,.vsl-tap:focus-visible span{border-color:var(--red)}
 
   /* REVIEWS */
   .reviews{padding-top:clamp(64px,10vh,110px);padding-bottom:64px}
@@ -425,7 +428,7 @@ function result(){
 }
 function showResult(k){
   const R = RESULTS[k];
-  const vsl = VSL[k] ? `<div class="vsl"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe></div>` : "";
+  const vsl = VSL[k] ? `<div class="vsl" data-vsl="${VSL[k]}"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&loop=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe><button class="vsl-tap" aria-label="Lancer la vidéo avec le son"><span>🔊 Lancer avec le son</span></button></div>` : "";
   const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
@@ -439,6 +442,8 @@ function showResult(k){
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
+  // VSL : aperçu muet en boucle ; un clic relance la vidéo depuis le début, avec le son
+  stage.querySelectorAll(".vsl-tap").forEach(b=>b.onclick=()=>{ const box=b.parentElement; box.querySelector("iframe").src=`https://player.mux.com/${box.dataset.vsl}?autoplay=true&accent-color=%23f33d4c`; b.remove(); });
   stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Cal && Cal.loaded){ e.preventDefault(); Cal("modal",{calLink:CAL_LINK,config:{layout:"month_view",theme:"dark"}}); } });
   if(POPUP_PAY) stage.querySelectorAll("[data-pay]").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
