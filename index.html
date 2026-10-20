@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Athletic Way — Trouve ton programme</title>
-<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Engine, Protocol ou coaching 1:1).">
+<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Engine, Protocol ou consultation 1:1).">
 <link rel="icon" type="image/svg+xml" href="img/aw-logo-red.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -252,10 +252,10 @@
     </a>
     <a class="step" href="#coaching">
       <span class="num">04</span>
-      <h3>Coaching 1:1</h3>
-      <span class="dur">Sur appel · places limitées</span>
-      <p>On le fait ensemble. Programme sur-mesure, ajusté chaque semaine.</p>
-      <span class="go">Voir le Coaching →</span>
+      <h3>Consultation 1:1</h3>
+      <span class="dur">30 minutes · 49 €</span>
+      <p>Tu veux un avis avant de choisir ? Je t'oriente vers le bon programme. Remboursée si tu pars avec un programme.</p>
+      <span class="go">Voir la Consultation →</span>
     </a>
   </div>
 
@@ -343,7 +343,7 @@ const VSL = { // lecteurs vidéo Mux (hébergés chez Mux, indépendants de Lova
   e: "s8XwvcvEPUHagCGqCRskoxwicr01aywCGHAQI56qXzRs"
 };
 
-/* ---------- QUIZ : f = Foundations, e = Engine, p = Protocol, c = Coaching ---------- */
+/* ---------- QUIZ : f = Foundations, e = Engine, p = Protocol, c = Consultation ---------- */
 const QUESTIONS = [
   { q:"Alors, tu veux quoi ?", opts:[
     { t:"Être plus fort", goal:"devenir plus fort" },
@@ -358,11 +358,11 @@ const QUESTIONS = [
   { q:"Tu fonctionnes comment ?", opts:[
     { t:"Donne-moi un plan, je me débrouille", p:{f:2} },
     { t:"Un système qui évolue, avec une team", s:"Nouveau bloc chaque mois, briefs vidéo, communauté", p:{p:2} },
-    { t:"Un coach sur mon dos", s:"Je veux être ajusté chaque semaine", p:{c:2} } ] },
+    { t:"Un avis d'expert avant de choisir", s:"30 min avec moi, je t'oriente vers le bon programme", p:{c:2} } ] },
   { q:"Et côté budget ?", opts:[
     { t:"Un petit billet, une seule fois", s:"Moins de 100 €", p:{f:2} },
     { t:"Un abonnement mensuel, ça me va", s:"39 € / mois, annulable", p:{p:2} },
-    { t:"J'investis pour aller vite", s:"On en parle en appel", p:{c:2} } ] }
+    { t:"J'investis pour aller vite", s:"Consultation de 30 min · 49 €, remboursée si tu pars avec un programme", p:{c:2} } ] }
 ];
 
 const RESULTS = {
@@ -382,10 +382,10 @@ const RESULTS = {
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
       price:'<s>59 €</s><b>39 €</b>/ mois, sans engagement',
       actions:[{t:"Rejoindre à 39 € / mois",h:LINKS.protocolMois},{t:"Plan 3 mois · 97 €",h:LINKS.protocolTri,ghost:1}] },
-  c:{ name:"Coaching 1:1", why:"Un programme fait pour toi et ajusté chaque semaine. On commence par un appel gratuit : on voit si on s'entend, et si je peux vraiment t'aider.",
-      list:["Appel découverte offert avec Quentin","Programme 100 % sur-mesure, sans template","Ajustements hebdomadaires selon tes retours","Garantie résultats 90 jours"],
-      price:'<b>Sur appel</b>places limitées',
-      actions:[{t:"Réserver mon appel",h:LINKS.coaching}] }
+  c:{ name:"Consultation 1:1", why:"30 minutes avec moi pour faire le point et trouver le bon programme. Si tu pars avec un accompagnement ou un programme, les frais de consultation te sont remboursés.",
+      list:["30 minutes en visio avec Quentin","On fait le point sur ton niveau, tes objectifs et tes contraintes","Je t'oriente vers le programme qui te correspond","Frais remboursés si tu pars avec un accompagnement ou un programme"],
+      price:'<b>49 €</b>30 minutes · remboursés si tu pars avec un programme',
+      actions:[{t:"Réserver ma consultation",h:LINKS.coaching}] }
 };
 
 const HINTS = ['Commence par le plus facile.','Tiens bon, c\'est plus court qu\'une série de squats.','Presque. Pas de triche.','La dernière. Après, tu sais quoi faire.'];
@@ -403,7 +403,7 @@ function render(){
     <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
     ${step>0?'<button class="back">← Retour</button>':''}
     <p class="skip">Tu sais déjà ce qu'il te faut ?
-      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a><a href="#" data-go="p">Protocol</a><a href="#" data-go="c">Coaching 1:1</a></p>`;
+      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a><a href="#" data-go="p">Protocol</a><a href="#" data-go="c">Consultation 1:1</a></p>`;
   stage.querySelectorAll("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();showResult(a.dataset.go);toQuiz();});
   stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
   const back = stage.querySelector(".back"); if(back) back.onclick=undo;
