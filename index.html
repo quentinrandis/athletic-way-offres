@@ -91,6 +91,7 @@
   .bundle .bp s{font:400 28px/1 "Bebas Neue";margin-right:10px;text-decoration-color:var(--red);text-decoration-thickness:2px}
   .bundle .bp b{font:400 48px/1 "Bebas Neue";color:var(--text);margin-right:10px}
   .bundle ul{margin:0 0 18px;padding-left:18px;color:var(--text);font-size:14px;line-height:1.6}
+  .bundle li b{color:var(--red)}
   .bundle .btn{width:100%}
   .solo{margin:0 0 10px;color:var(--muted);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
   .vsl{position:relative;aspect-ratio:16/9;margin:0 0 24px;border-radius:10px;overflow:hidden;background:#000}
@@ -448,7 +449,7 @@ function showResult(k){
     <p>Tu veux ${goal} ? ${R.why}</p>
     <ul>${R.list.map(l=>`<li>${l}</li>`).join("")}</ul>
     <div class="price">${R.price}</div>
-    ${R.bundle ? `<div class="bundle"><span class="tag">Meilleure offre</span><h3>Le parcours complet : Foundations + Engine</h3><p class="bp"><s>194 €</s><b>169 €</b>paiement unique · tu économises 25 €</p><ul><li>24 semaines, du premier jour au test moteur final</li><li>Foundations pose les bases, Engine construit le moteur : aucune pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li></ul><a class="btn" href="${LINKS.bundle}" data-pay>Prendre le parcours complet · 169 €</a></div><p class="solo">Ou un seul programme</p>` : ""}
+    ${R.bundle ? `<div class="bundle"><span class="tag">Meilleure offre</span><h3>Le parcours complet : Foundations + Engine</h3><p class="bp"><s>194 €</s><b>169 €</b>paiement unique · tu économises 25 €</p><ul><li>24 semaines, du premier jour au test moteur final</li><li>Foundations pose les bases, Engine construit le moteur : aucune pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus : un appel de 15 min avec Quentin</b> pour te guider dans ton parcours</li></ul><a class="btn" href="${LINKS.bundle}" data-pay>Prendre le parcours complet · 169 €</a></div><p class="solo">Ou un seul programme</p>` : ""}
     <div class="actions">${actions}</div>
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
