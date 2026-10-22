@@ -84,6 +84,15 @@
   .price s{font:400 34px/1 "Bebas Neue";color:var(--muted);margin-right:12px;text-decoration-color:var(--red);text-decoration-thickness:2px}
   .price b{font:400 56px/1 "Bebas Neue";color:var(--text);margin-right:10px}
   .actions{display:flex;flex-wrap:wrap;gap:12px}
+  .bundle{position:relative;margin:26px 0 18px;padding:26px 24px 24px;border:2px solid var(--red);border-radius:14px;background:rgba(243,61,76,.07)}
+  .bundle .tag{position:absolute;top:-12px;left:20px;background:var(--red);color:#fff;font:700 11px "DM Sans";letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:6px}
+  .bundle h3{margin:0 0 8px;font:400 30px/1.05 "Bebas Neue";letter-spacing:.02em}
+  .bundle .bp{margin:0 0 12px;color:var(--muted);font-size:14px}
+  .bundle .bp s{font:400 28px/1 "Bebas Neue";margin-right:10px;text-decoration-color:var(--red);text-decoration-thickness:2px}
+  .bundle .bp b{font:400 48px/1 "Bebas Neue";color:var(--text);margin-right:10px}
+  .bundle ul{margin:0 0 18px;padding-left:18px;color:var(--text);font-size:14px;line-height:1.6}
+  .bundle .btn{width:100%}
+  .solo{margin:0 0 10px;color:var(--muted);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
   .vsl{position:relative;aspect-ratio:16/9;margin:0 0 24px;border-radius:10px;overflow:hidden;background:#000}
   .proof-vids{margin-top:44px;padding-top:32px;border-top:1px solid var(--line)}
   .pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
@@ -328,6 +337,7 @@ const LINKS = {
   protocolMois: "https://app.jimmycoach.com/pay/EmCQuXwi",
   protocolTri:  "https://app.jimmycoach.com/pay/EUAGyP5b",
   engine:       "https://app.jimmycoach.com/pay/mtbYnKkr",
+  bundle:       "https://app.jimmycoach.com/pay/45pFmUqU",
   coaching:     "https://cal.com/jimmycoach/free30"
 };
 const CAL_LINK = "jimmycoach/free30"; // pop-up de réservation cal.com (si le script ne charge pas, le lien s'ouvre dans un nouvel onglet)
@@ -368,16 +378,16 @@ const QUESTIONS = [
 const RESULTS = {
   f:{ name:"Athletic Foundations", why:"12 semaines, un plan clair, et tu fais le job. Tu l'achètes une fois, c'est à toi pour la vie.",
       list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours","Et après ? Athletic Engine prend le relais"],
-      price:'<s>197 €</s><b>97 €</b>paiement unique · accès à vie',
-      actions:[{t:"Commencer ma transformation",h:LINKS.foundations},{t:"Voir la suite : Engine",h:"#engine",ghost:true}] },
+      price:'<s>147 €</s><b>97 €</b>paiement unique · accès à vie',
+      actions:[{t:"Commencer ma transformation",h:LINKS.foundations},{t:"Voir la suite : Engine",h:"#engine",ghost:true}], bundle:true },
   e:{ name:"Athletic Engine",
       why:"La suite directe de Foundations. Les bases sont posées. Maintenant on construit le moteur. 12 semaines, et un nouveau test pour voir le chemin parcouru.",
       list:["12 semaines en 3 phases, dans la continuité de Foundations",
             "4 à 5 séances / semaine, moins d'une heure par séance",
             "Plus de puissance, plus de vitesse, plus de caisse",
             "Nouveau test moteur en semaine 12"],
-      price:'<s>197 €</s><b>97 €</b>offre de lancement · paiement unique · accès à vie',
-      actions:[{t:"Lancer Engine",h:LINKS.engine}] },
+      price:'<s>147 €</s><b>97 €</b>offre de lancement · paiement unique · accès à vie',
+      actions:[{t:"Lancer Engine",h:LINKS.engine}], bundle:true },
   p:{ name:"Athletic Protocol", why:"Un nouveau bloc tous les mois, des briefs vidéo, un live avec moi et une team qui te tire vers le haut. Tu restes tant que ça te sert, tu pars quand tu veux.",
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
       price:'<s>59 €</s><b>39 €</b>/ mois, sans engagement',
@@ -429,7 +439,7 @@ function result(){
 function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl" data-vsl="${VSL[k]}"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&loop=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe><button class="vsl-tap" aria-label="Lancer la vidéo avec le son"><span>🔊 Lancer avec le son</span></button></div>` : "";
-  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
+  const actions = R.actions.map(a=>`<a class="btn ${a.ghost||R.bundle?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Bienvenue dans la team</span>
@@ -438,6 +448,7 @@ function showResult(k){
     <p>Tu veux ${goal} ? ${R.why}</p>
     <ul>${R.list.map(l=>`<li>${l}</li>`).join("")}</ul>
     <div class="price">${R.price}</div>
+    ${R.bundle ? `<div class="bundle"><span class="tag">Meilleure offre</span><h3>Le parcours complet : Foundations + Engine</h3><p class="bp"><s>194 €</s><b>169 €</b>paiement unique · tu économises 25 €</p><ul><li>24 semaines, du premier jour au test moteur final</li><li>Foundations pose les bases, Engine construit le moteur : aucune pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li></ul><a class="btn" href="${LINKS.bundle}" data-pay>Prendre le parcours complet · 169 €</a></div><p class="solo">Ou un seul programme</p>` : ""}
     <div class="actions">${actions}</div>
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
