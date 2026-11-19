@@ -30,6 +30,7 @@ const CONFIG = {
     start: "2026-11-19T00:00:00+01:00",
     end:   "2026-11-27T23:59:59+01:00",      // vendredi 27 novembre, 23h59 heure de Paris
     bundlePrice: 119,
+    referencePrice: 194,                     // prix barré : Foundations 97 + Engine 97 achetés séparément
     bundleCheckoutUrl: "https://app.jimmycoach.com/pay/mv4ZJnv3"
   },
   /* FAQ sous les offres. Les réponses entre crochets sont à valider par Quentin.

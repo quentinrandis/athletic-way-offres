@@ -227,9 +227,9 @@ function tick(){
 function renderBf(){
   const top = document.getElementById("bf-top"), bar = document.getElementById("bf-bar");
   if (!top || !bar || !bfActive()) return;
-  top.innerHTML = `<div class="bf-inner"><span class="bf-badge">Black Friday</span><h2 class="bf-title">Le parcours complet : <span>Foundations + Engine</span></h2><p class="bf-sub">24 semaines. Accès à vie. Tu paies une fois.</p><div class="bf-price"><s>${eur(P.bundle)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(P.bundle - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div>`;
+  top.innerHTML = `<div class="bf-inner"><span class="bf-badge">Black Friday</span><h2 class="bf-title">Le parcours complet : <span>Foundations + Engine</span></h2><p class="bf-sub">24 semaines. Accès à vie. Tu paies une fois.</p><div class="bf-price"><s>${eur(BF.referencePrice)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(BF.referencePrice - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div>`;
   bar.href = BF.bundleCheckoutUrl;
-  bar.innerHTML = `<b>BLACK FRIDAY</b><span>Le parcours complet à ${eur(BF.bundlePrice)} au lieu de ${eur(P.bundle)}</span><span>Fin dans <b data-countdown></b></span>`;
+  bar.innerHTML = `<b>BLACK FRIDAY</b><span>Le parcours complet à ${eur(BF.bundlePrice)} au lieu de ${eur(BF.referencePrice)}</span><span>Fin dans <b data-countdown></b></span>`;
   tick(); setInterval(tick, 1000);
   const onScroll = () => bar.classList.toggle("show", top.getBoundingClientRect().bottom < 0);
   addEventListener("scroll", onScroll, {passive:true}); onScroll();
@@ -511,7 +511,7 @@ function result(){
 }
 /* Offre principale : le parcours complet (tarif Black Friday pendant l'opération), puis les programmes seuls */
 function bundleHTML(){
-  const bf = bfActive(), price = bf ? BF.bundlePrice : P.bundle, was = bf ? P.bundle : P.bundleBarred, link = bf ? BF.bundleCheckoutUrl : LINKS.bundle;
+  const bf = bfActive(), price = bf ? BF.bundlePrice : P.bundle, was = bf ? BF.referencePrice : P.bundleBarred, link = bf ? BF.bundleCheckoutUrl : LINKS.bundle;
   const faq = (CONFIG.faq.enabled || qs.get("faq") === "1") ? `<div class="faq">${CONFIG.faq.items.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>` : "";
   return `<div class="bundle"><span class="tag">${bf?"Black Friday":"Meilleure offre"}</span><h3>Le parcours complet : Foundations + Engine</h3><p class="bp"><s>${eur(was)}</s><b>${eur(price)}</b>paiement unique · tu économises ${eur(was-price)}</p><ul><li>24 semaines, du premier jour au test moteur final</li><li>Foundations pose les bases, Engine construit le moteur : aucune pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus :</b> Nutrition Autopilote, 30 recettes protéinées et plans repas (valeur ${eur(P.bonusValue)})</li></ul><a class="btn" href="${link}" data-pay>Prendre le parcours complet · ${eur(price)}</a>${trustHTML()}</div>
     <p class="solo">Ou un seul programme</p>
