@@ -24,6 +24,12 @@ const CONFIG = {
     protocolTri:  "https://app.jimmycoach.com/pay/EUAGyP5b",
     coaching:     "https://cal.com/jimmycoach/free30"
   },
+  /* Vidéos Mux des programmes */
+  videos: {
+    f: "mwyvIpbQhjGKj7HBK01q01xH0101G4jzs71Que4py9NoDuk",
+    e: "s8XwvcvEPUHagCGqCRskoxwicr01aywCGHAQI56qXzRs",
+    p: "clbqnIWqsB902q00y2Ni2IQIxl00016LD6Nt400bnVCfx1VY"
+  },
   /* Black Friday : s'allume et s'éteint tout seul entre start et end.
      Test : ajouter ?bf=1 à l'adresse. Simuler une date : ?now=2026-11-28T00:00:00Z */
   blackFriday: {

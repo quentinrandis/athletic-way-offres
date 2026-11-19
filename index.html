@@ -122,22 +122,41 @@
   .faq details p{margin-top:10px;font-size:15px;color:var(--muted);max-width:560px}
 
   /* BLACK FRIDAY */
-  .bf-top{display:none;min-height:100svh;align-items:center;justify-content:center;text-align:center;padding-top:clamp(24px,5vh,56px);padding-bottom:clamp(24px,5vh,56px);background:radial-gradient(ellipse at 50% 0%,rgba(243,61,76,.24),transparent 62%),var(--bg);border-bottom:1px solid var(--line)}
-  html.bf .bf-top{display:flex}
-  .bf-inner{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .bf-top{display:none;padding-top:clamp(28px,5vh,56px);padding-bottom:clamp(40px,7vh,80px);background:radial-gradient(ellipse at 50% 0%,rgba(243,61,76,.24),transparent 55%),var(--bg);border-bottom:1px solid var(--line)}
+  html.bf .bf-top{display:block}
+  .bf-head{max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
   .bf-badge{background:var(--red);color:#fff;font:700 12px "DM Sans";letter-spacing:.16em;text-transform:uppercase;padding:6px 16px;border-radius:99px}
-  .bf-title{font-size:clamp(40px,10vw,76px);line-height:.95}
+  .bf-title{font-size:clamp(40px,9vw,76px);line-height:.95}
   .bf-title span{color:var(--red)}
   .bf-sub{color:#dcdcdc;font-size:clamp(15px,2.4vw,18px)}
-  .bf-price{display:flex;align-items:baseline;justify-content:center;gap:14px;margin-top:4px}
+  .bf-deal{display:flex;align-items:baseline;justify-content:center;gap:12px}
+  .bf-deal s{font:400 28px/1 "Bebas Neue";color:var(--muted);text-decoration-color:var(--red);text-decoration-thickness:2px}
+  .bf-deal b{font:400 60px/1 "Bebas Neue";color:var(--text)}
+  .bf-hint{color:var(--muted);font-size:14px}
+  .bf-progs{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1100px;margin:28px auto 0}
+  .bf-prog{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 12px 20px}
+  .bf-prog .vsl{margin:0 0 16px}
+  .bf-prog>div{padding:0 6px}
+  .bf-prog .num{font:400 15px "Bebas Neue";letter-spacing:.12em;color:var(--red)}
+  .bf-prog h3{font-size:34px;margin:2px 0 6px}
+  .bf-prog p{color:var(--muted);font-size:15px}
+  .bf-prog ul,.bf-offer ul{list-style:none;display:grid;gap:8px;margin-top:12px}
+  .bf-prog li,.bf-offer li{padding-left:24px;position:relative;font-size:14.5px;text-align:left}
+  .bf-prog li::before,.bf-offer li::before{content:"";position:absolute;left:0;top:11px;width:12px;height:2px;background:var(--red)}
+  .bf-offer{max-width:640px;margin:20px auto 0;padding:28px 22px 22px;border:2px solid var(--red);border-radius:14px;background:rgba(243,61,76,.07);text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .bf-offer h3{font-size:clamp(30px,6vw,44px)}
+  .bf-offer ul{width:100%;max-width:470px;margin:0 0 4px}
+  .bf-offer li b{color:var(--red)}
+  .bf-price{display:flex;align-items:baseline;justify-content:center;gap:14px}
   .bf-price s{font:400 clamp(30px,7vw,44px)/1 "Bebas Neue";color:var(--muted);text-decoration-color:var(--red);text-decoration-thickness:2px}
-  .bf-price b{font:400 clamp(84px,24vw,140px)/.9 "Bebas Neue";color:var(--text)}
+  .bf-price b{font:400 clamp(76px,20vw,120px)/.9 "Bebas Neue";color:var(--text)}
   .bf-save{color:var(--red);font:700 13px "DM Sans";letter-spacing:.1em;text-transform:uppercase;margin-top:-4px}
   .bf-count{font-size:15px;color:#dcdcdc}
   .bf-count b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
   .bf-btn{width:100%;padding:20px 24px;font-size:15px}
   .bf-quiz{color:var(--muted);font-size:13px;text-underline-offset:4px}
   .bf-quiz:hover{color:var(--text)}
+  @media(max-width:760px){.bf-progs{grid-template-columns:1fr}}
   .bf-bar{position:fixed;top:0;left:0;right:0;z-index:900;display:none;align-items:center;justify-content:center;flex-wrap:wrap;gap:2px 10px;padding:8px 14px;background:var(--red);color:#fff;text-decoration:none;font-size:12.5px;line-height:1.35;text-align:center;transform:translateY(-100%);transition:transform .25s}
   html.bf .bf-bar{display:flex}
   .bf-bar.show{transform:none}
@@ -224,10 +243,19 @@ function tick(){
   document.querySelectorAll("[data-countdown]").forEach(e => e.textContent = fmtLeft(ms));
   if (ms <= 0 && !bfForced) location.reload();   // l'offre est finie : la page revient à l'état normal
 }
+const vslHTML = (id, title) => `<div class="vsl" data-vsl="${id}"><iframe src="https://player.mux.com/${id}?autoplay=true&muted=true&loop=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${title}"></iframe><button class="vsl-tap" aria-label="Lancer la vidéo avec le son"><span>🔊 Lancer avec le son</span></button></div>`;
+// VSL : aperçu muet en boucle ; un clic relance la vidéo depuis le début, avec le son
+document.addEventListener("click", e => { const b = e.target.closest(".vsl-tap"); if (!b) return; const box = b.parentElement; box.querySelector("iframe").src = `https://player.mux.com/${box.dataset.vsl}?autoplay=true&accent-color=%23f33d4c`; b.remove(); });
 function renderBf(){
   const top = document.getElementById("bf-top"), bar = document.getElementById("bf-bar");
   if (!top || !bar || !bfActive()) return;
-  top.innerHTML = `<div class="bf-inner"><span class="bf-badge">Black Friday</span><h2 class="bf-title">Le parcours complet : <span>Foundations + Engine</span></h2><p class="bf-sub">24 semaines. Accès à vie. Tu paies une fois.</p><div class="bf-price"><s>${eur(BF.referencePrice)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(BF.referencePrice - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div>`;
+  const V = CONFIG.videos;
+  top.innerHTML = `<div class="bf-head"><span class="bf-badge">Black Friday</span><h2 class="bf-title">Le parcours complet : <span>Foundations + Engine</span></h2><p class="bf-sub">24 semaines. Accès à vie. Tu paies une fois.</p><div class="bf-deal"><s>${eur(BF.referencePrice)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-count">Fin dans <b data-countdown></b></p><p class="bf-hint">Regarde les deux programmes. Ensuite, tu décides.</p></div>
+  <div class="bf-progs">
+    <article class="bf-prog">${vslHTML(V.f, "Athletic Foundations")}<div><span class="num">01 · 12 semaines</span><h3>Athletic Foundations</h3><p>Tu poses les bases. Tu sprintes, tu sautes, tu deviens plus fort.</p><ul><li>3 phases : Bases, Progression, Force</li><li>4 séances / semaine, moins d'une heure</li><li>Vidéos de démonstration et alternatives matériel</li><li>Test de force en semaine 12</li></ul></div></article>
+    <article class="bf-prog">${vslHTML(V.e, "Athletic Engine")}<div><span class="num">02 · 12 semaines</span><h3>Athletic Engine</h3><p>La suite directe. Tu construis le moteur : plus de puissance, plus de vitesse, plus de caisse.</p><ul><li>3 phases, dans la continuité de Foundations</li><li>4 à 5 séances / semaine, moins d'une heure par séance</li><li>Nouveau test moteur en semaine 12</li></ul></div></article>
+  </div>
+  <div class="bf-offer"><h3>Les deux programmes. Un seul paiement.</h3><ul><li>Foundations puis Engine : 24 semaines, sans pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus :</b> Nutrition Autopilote, 30 recettes protéinées et plans repas (valeur ${eur(P.bonusValue)})</li></ul><div class="bf-price"><s>${eur(BF.referencePrice)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(BF.referencePrice - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div>`;
   bar.href = BF.bundleCheckoutUrl;
   bar.innerHTML = `<b>BLACK FRIDAY</b><span>Le parcours complet à ${eur(BF.bundlePrice)} au lieu de ${eur(BF.referencePrice)}</span><span>Fin dans <b data-countdown></b></span>`;
   tick(); setInterval(tick, 1000);
@@ -419,11 +447,7 @@ const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
     {id:"xRkAmwC00Y01700ajeE3014xQ15CynRLTAgonviNltdng5E", who:"Julien"}
   ]
 };
-const VSL = { // lecteurs vidéo Mux (hébergés chez Mux, indépendants de Lovable)
-  f: "mwyvIpbQhjGKj7HBK01q01xH0101G4jzs71Que4py9NoDuk",
-  p: "clbqnIWqsB902q00y2Ni2IQIxl00016LD6Nt400bnVCfx1VY",
-  e: "s8XwvcvEPUHagCGqCRskoxwicr01aywCGHAQI56qXzRs"
-};
+const VSL = CONFIG.videos;   // vidéos Mux : voir config.js
 
 /* ---------- QUIZ : f = Foundations, e = Engine, p = Protocol, c = Consultation ---------- */
 const QUESTIONS = [
@@ -521,7 +545,7 @@ function bundleHTML(){
 }
 function showResult(k){
   const R = RESULTS[k];
-  const vsl = VSL[k] ? `<div class="vsl" data-vsl="${VSL[k]}"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&loop=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe><button class="vsl-tap" aria-label="Lancer la vidéo avec le son"><span>🔊 Lancer avec le son</span></button></div>` : "";
+  const vsl = VSL[k] ? vslHTML(VSL[k], R.name) : "";
   const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
@@ -535,8 +559,6 @@ function showResult(k){
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
-  // VSL : aperçu muet en boucle ; un clic relance la vidéo depuis le début, avec le son
-  stage.querySelectorAll(".vsl-tap").forEach(b=>b.onclick=()=>{ const box=b.parentElement; box.querySelector("iframe").src=`https://player.mux.com/${box.dataset.vsl}?autoplay=true&accent-color=%23f33d4c`; b.remove(); });
   stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Cal && Cal.loaded){ e.preventDefault(); Cal("modal",{calLink:CAL_LINK,config:{layout:"month_view",theme:"dark"}}); } });
   if(POPUP_PAY) stage.querySelectorAll("[data-pay]").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
