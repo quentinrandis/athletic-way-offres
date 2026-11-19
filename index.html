@@ -104,6 +104,47 @@
   .vsl-tap span{background:rgba(10,10,10,.75);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:99px;padding:8px 16px;font:600 12px "DM Sans";letter-spacing:.08em;text-transform:uppercase;color:#fff}
   .vsl-tap:hover span,.vsl-tap:focus-visible span{border-color:var(--red)}
 
+  .trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:12px;font-size:12px;color:var(--muted)}
+  .trust span{display:inline-flex;align-items:center;gap:6px}
+  .trust svg{width:14px;height:14px;flex:none;stroke:var(--red);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .solo-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px}
+  .solo-item{display:flex;flex-direction:column;gap:6px}
+  .solo-item .btn{width:100%}
+  .solo-item small{color:var(--muted);font-size:12px;text-align:center}
+  .solo-more{margin:-4px 0 12px;color:#dcdcdc;font-size:14px}
+  @media(max-width:640px){.solo-btns{grid-template-columns:1fr}}
+  .faq{margin-top:26px;border-top:1px solid var(--line)}
+  .faq details{border-bottom:1px solid var(--line);padding:14px 0}
+  .faq summary{cursor:pointer;font-weight:600;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--red);font-size:20px;line-height:1}
+  .faq details[open] summary::after{content:"−"}
+  .faq details p{margin-top:10px;font-size:15px;color:var(--muted);max-width:560px}
+
+  /* BLACK FRIDAY */
+  .bf-top{display:none;min-height:100svh;align-items:center;justify-content:center;text-align:center;padding-top:clamp(24px,5vh,56px);padding-bottom:clamp(24px,5vh,56px);background:radial-gradient(ellipse at 50% 0%,rgba(243,61,76,.24),transparent 62%),var(--bg);border-bottom:1px solid var(--line)}
+  html.bf .bf-top{display:flex}
+  .bf-inner{width:100%;max-width:640px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .bf-badge{background:var(--red);color:#fff;font:700 12px "DM Sans";letter-spacing:.16em;text-transform:uppercase;padding:6px 16px;border-radius:99px}
+  .bf-title{font-size:clamp(40px,10vw,76px);line-height:.95}
+  .bf-title span{color:var(--red)}
+  .bf-sub{color:#dcdcdc;font-size:clamp(15px,2.4vw,18px)}
+  .bf-price{display:flex;align-items:baseline;justify-content:center;gap:14px;margin-top:4px}
+  .bf-price s{font:400 clamp(30px,7vw,44px)/1 "Bebas Neue";color:var(--muted);text-decoration-color:var(--red);text-decoration-thickness:2px}
+  .bf-price b{font:400 clamp(84px,24vw,140px)/.9 "Bebas Neue";color:var(--text)}
+  .bf-save{color:var(--red);font:700 13px "DM Sans";letter-spacing:.1em;text-transform:uppercase;margin-top:-4px}
+  .bf-count{font-size:15px;color:#dcdcdc}
+  .bf-count b{font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+  .bf-btn{width:100%;padding:20px 24px;font-size:15px}
+  .bf-quiz{color:var(--muted);font-size:13px;text-underline-offset:4px}
+  .bf-quiz:hover{color:var(--text)}
+  .bf-bar{position:fixed;top:0;left:0;right:0;z-index:900;display:none;align-items:center;justify-content:center;flex-wrap:wrap;gap:2px 10px;padding:8px 14px;background:var(--red);color:#fff;text-decoration:none;font-size:12.5px;line-height:1.35;text-align:center;transform:translateY(-100%);transition:transform .25s}
+  html.bf .bf-bar{display:flex}
+  .bf-bar.show{transform:none}
+  .bf-bar b{font-weight:700}
+  .bf-bar>b:first-child{letter-spacing:.12em}
+  .bf-bar [data-countdown]{font-variant-numeric:tabular-nums}
+
   /* REVIEWS */
   .reviews{padding-top:clamp(64px,10vh,110px);padding-bottom:64px}
   .block .msgs{margin-top:8px}
@@ -163,8 +204,43 @@
   @media(max-width:700px){.clips{grid-template-columns:repeat(2,1fr)}}
   @media(prefers-reduced-motion:reduce){.hero video,.clips video{display:none}}
 </style>
+<script src="config.js"></script>
+<script>
+/* ---------- aides communes : prix, Black Friday ---------- */
+const P = CONFIG.prices, BF = CONFIG.blackFriday;
+const eur = n => n + "\u00a0€";
+const qs = new URLSearchParams(location.search);
+const T0 = Date.now(), SIM = qs.get("now") ? Date.parse(qs.get("now").replace(" ", "+")) : null;
+const nowMs = () => SIM === null ? Date.now() : SIM + (Date.now() - T0);
+const bfForced = qs.get("bf") === "1";
+const bfActive = () => bfForced || (nowMs() >= Date.parse(BF.start) && nowMs() <= Date.parse(BF.end));
+if (bfActive()) document.documentElement.classList.add("bf");
+const bfLeft = () => Math.max(0, Date.parse(BF.end) - nowMs());
+function fmtLeft(ms){ const m = Math.floor(ms/60000); return `${Math.floor(m/1440)} j ${Math.floor(m%1440/60)} h ${String(m%60).padStart(2,"0")} min`; }
+const svg = d => `<svg viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+const trustHTML = () => `<div class="trust"><span>${svg('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>')}Paiement sécurisé</span><span>${svg('<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>')}Accès immédiat dans l'appli Jimmy</span><span>${svg('<path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.500 7-10V6z"/><path d="m9 12 2 2 4-4"/>')}Garantie 30 jours</span></div>`;
+function tick(){
+  const ms = bfLeft();
+  document.querySelectorAll("[data-countdown]").forEach(e => e.textContent = fmtLeft(ms));
+  if (ms <= 0 && !bfForced) location.reload();   // l'offre est finie : la page revient à l'état normal
+}
+function renderBf(){
+  const top = document.getElementById("bf-top"), bar = document.getElementById("bf-bar");
+  if (!top || !bar || !bfActive()) return;
+  top.innerHTML = `<div class="bf-inner"><span class="bf-badge">Black Friday</span><h2 class="bf-title">Le parcours complet : <span>Foundations + Engine</span></h2><p class="bf-sub">24 semaines. Accès à vie. Tu paies une fois.</p><div class="bf-price"><s>${eur(P.bundle)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(P.bundle - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div>`;
+  bar.href = BF.bundleCheckoutUrl;
+  bar.innerHTML = `<b>BLACK FRIDAY</b><span>Le parcours complet à ${eur(BF.bundlePrice)} au lieu de ${eur(P.bundle)}</span><span>Fin dans <b data-countdown></b></span>`;
+  tick(); setInterval(tick, 1000);
+  const onScroll = () => bar.classList.toggle("show", top.getBoundingClientRect().bottom < 0);
+  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+}
+</script>
 </head>
 <body>
+
+<section class="bf-top pad" id="bf-top" aria-label="Offre Black Friday"></section>
+<a class="bf-bar" id="bf-bar" href="#" data-pay></a>
+<script>renderBf();</script>
 
 <header class="hero">
   <video autoplay muted loop playsinline preload="metadata" poster="media/hero-poster.jpg" src="media/hero.mp4"></video>
@@ -218,7 +294,7 @@
 
 <section class="block pad" id="parcours">
   <style>
-    #parcours .path{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+    #parcours .path{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
     #parcours .step{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px 20px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}
     #parcours .step:hover{border-color:var(--red);transform:translateY(-2px)}
     #parcours .num{font-family:"Bebas Neue",Impact,sans-serif;color:var(--red);font-size:15px;letter-spacing:.12em}
@@ -226,11 +302,15 @@
     #parcours .dur{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     #parcours .step p{font-size:15px;color:var(--muted);margin:4px 0 0;line-height:1.5}
     #parcours .go{margin-top:auto;padding-top:10px;font-size:14px}
+    #parcours .pprice{margin-top:auto;padding-top:10px;font-size:14px;color:var(--muted)}
+    #parcours .pprice b{font:400 30px/1 "Bebas Neue";color:var(--text);margin-right:6px}
+    #parcours .pboth{font-size:13px;color:var(--muted)}
+    #parcours .pprice~.go{margin-top:0;padding-top:6px}
+    #parcours .member{margin-top:10px;font-size:13px;color:var(--muted)}
     #parcours .step.new{border-color:var(--red)}
     #parcours .tag{align-self:flex-start;background:var(--red);color:#fff;font-size:11px;padding:3px 8px;border-radius:3px;letter-spacing:.1em;text-transform:uppercase}
     #parcours .cta{margin-top:22px;font-size:15px;color:var(--muted)}
     #parcours .cta a{color:var(--red)}
-    @media (max-width:1000px){#parcours .path{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:760px){#parcours .path{grid-template-columns:1fr}}
   </style>
 
@@ -243,6 +323,8 @@
       <h3>Athletic Foundations</h3>
       <span class="dur">12 semaines · paiement unique</span>
       <p>Tu poses les bases. Tu sprintes, tu sautes, tu deviens plus fort. Test de force en semaine 12.</p>
+      <span class="pprice" data-card="foundations"></span>
+      <span class="pboth" data-both></span>
       <span class="go">Voir Foundations →</span>
     </a>
     <a class="step new" href="#engine">
@@ -251,25 +333,21 @@
       <h3>Athletic Engine</h3>
       <span class="dur">12 semaines · la suite directe</span>
       <p>Tu construis le moteur. Plus de puissance, plus de vitesse, plus de caisse. Nouveau test en semaine 12.</p>
+      <span class="pprice" data-card="engine"></span>
+      <span class="pboth" data-both></span>
       <span class="go">Voir Engine →</span>
     </a>
-    <a class="step" href="#protocol">
-      <span class="num">03</span>
-      <h3>Athletic Protocol</h3>
-      <span class="dur">Chaque mois · sans engagement</span>
-      <p>Tu continues avec la team. Un nouveau bloc chaque mois, des briefs vidéo, un live avec moi.</p>
-      <span class="go">Voir Protocol →</span>
-    </a>
     <a class="step" href="#coaching">
-      <span class="num">04</span>
+      <span class="num">03</span>
       <h3>Consultation 1:1</h3>
-      <span class="dur">30 minutes · 49 €</span>
+      <span class="dur" data-consult></span>
       <p>On creuse ton cas en détail : historique, blessures, planning, blocages. Tu repars avec un plan précis. Remboursée si tu pars avec un programme.</p>
       <span class="go">Voir la Consultation →</span>
     </a>
   </div>
 
   <p class="cta">Tu sais pas par où commencer ? <a href="#quiz">4 questions, 30 secondes →</a></p>
+  <p class="member">Déjà membre d'Athletic Protocol ? Ta programmation t'attend dans l'appli Jimmy.</p>
 </section>
 
 <div class="quiz-wrap">
@@ -333,14 +411,7 @@ Cal("init", {origin:"https://app.cal.com"});
 </script>
 <script>
 /* ---------- LIENS ---------- */
-const LINKS = {
-  foundations:  "https://app.jimmycoach.com/pay/e9LGJoYY",
-  protocolMois: "https://app.jimmycoach.com/pay/EmCQuXwi",
-  protocolTri:  "https://app.jimmycoach.com/pay/EUAGyP5b",
-  engine:       "https://app.jimmycoach.com/pay/mtbYnKkr",
-  bundle:       "https://app.jimmycoach.com/pay/45pFmUqU",
-  coaching:     "https://cal.com/jimmycoach/free30"
-};
+const LINKS = CONFIG.links;   // prix et liens : voir config.js
 const CAL_LINK = "jimmycoach/free30"; // pop-up de réservation cal.com (si le script ne charge pas, le lien s'ouvre dans un nouvel onglet)
 const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
   c: [
@@ -372,30 +443,30 @@ const QUESTIONS = [
     { t:"Qu'on creuse mon cas à fond", s:"30 min en visio, rien que sur moi, avec un plan précis à la clé", p:{c:2} } ] },
   { q:"Et côté budget ?", opts:[
     { t:"Un petit billet, une seule fois", s:"Moins de 100 €", p:{f:2} },
-    { t:"Un abonnement mensuel, ça me va", s:"39 € / mois, annulable", p:{p:2} },
-    { t:"J'investis pour aller vite", s:"Consultation de 30 min · 49 €, remboursée si tu pars avec un programme", p:{c:2} } ] }
+    { t:"Un abonnement mensuel, ça me va", s:`${eur(P.protocolMonthly)} / mois, annulable`, p:{p:2} },
+    { t:"J'investis pour aller vite", s:`Consultation de 30 min · ${eur(P.consultation)}, remboursée si tu pars avec un programme`, p:{c:2} } ] }
 ];
 
 const RESULTS = {
   f:{ name:"Athletic Foundations", why:"12 semaines, un plan clair, et tu fais le job. Tu l'achètes une fois, c'est à toi pour la vie.",
       list:["12 semaines en 3 phases : Bases, Progression, Force","4 séances / semaine, moins d'une heure","Vidéos de démonstration et alternatives matériel","Accès à vie · garantie 30 jours","Et après ? Athletic Engine prend le relais"],
-      price:'<s>147 €</s><b>97 €</b>paiement unique · accès à vie',
-      actions:[{t:"Commencer ma transformation",h:LINKS.foundations},{t:"Voir la suite : Engine",h:"#engine",ghost:true}], bundle:true },
+      price:`<s>${eur(P.foundationsBarred)}</s><b>${eur(P.foundations)}</b>paiement unique · accès à vie`,
+      actions:[], bundle:true },
   e:{ name:"Athletic Engine",
       why:"La suite directe de Foundations. Les bases sont posées. Maintenant on construit le moteur. 12 semaines, et un nouveau test pour voir le chemin parcouru.",
       list:["12 semaines en 3 phases, dans la continuité de Foundations",
             "4 à 5 séances / semaine, moins d'une heure par séance",
             "Plus de puissance, plus de vitesse, plus de caisse",
             "Nouveau test moteur en semaine 12"],
-      price:'<s>147 €</s><b>97 €</b>offre de lancement · paiement unique · accès à vie',
-      actions:[{t:"Lancer Engine",h:LINKS.engine}], bundle:true },
+      price:`<s>${eur(P.engineBarred)}</s><b>${eur(P.engine)}</b>offre de lancement · paiement unique · accès à vie`,
+      actions:[], bundle:true },
   p:{ name:"Athletic Protocol", why:"Un nouveau bloc tous les mois, des briefs vidéo, un live avec moi et une team qui te tire vers le haut. Tu restes tant que ça te sert, tu pars quand tu veux.",
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
-      price:'<s>59 €</s><b>39 €</b>/ mois, sans engagement',
-      actions:[{t:"Rejoindre à 39 € / mois",h:LINKS.protocolMois},{t:"Plan 3 mois · 97 €",h:LINKS.protocolTri,ghost:1}] },
+      price:`<s>${eur(P.protocolMonthlyBarred)}</s><b>${eur(P.protocolMonthly)}</b>/ mois, sans engagement`,
+      actions:[{t:`Rejoindre à ${eur(P.protocolMonthly)} / mois`,h:LINKS.protocolMois},{t:`Plan 3 mois · ${eur(P.protocol3m)}`,h:LINKS.protocolTri,ghost:1}] },
   c:{ name:"Consultation 1:1", why:"30 minutes en visio, rien que sur toi. On décortique ton historique, ton planning, tes blocages. Tu repars avec la solution qui colle à ton cas, et la marche à suivre pour l'appliquer. Si tu pars avec un accompagnement ou un programme, les frais te sont remboursés.",
       list:["30 minutes en visio, rien que sur toi","On analyse ton historique, tes blessures, ton planning, ce qui te bloque","Un diagnostic clair : ce qui marche pour ton cas, et ce qui te fait perdre du temps","Le bon programme, dans le bon ordre, adapté à ta vie","Frais remboursés si tu pars avec un accompagnement ou un programme"],
-      price:'<b>49 €</b>30 minutes · remboursés si tu pars avec un programme',
+      price:`<b>${eur(P.consultation)}</b>30 minutes · remboursés si tu pars avec un programme`,
       actions:[{t:"Réserver ma consultation",h:LINKS.coaching}] }
 };
 
@@ -414,7 +485,7 @@ function render(){
     <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
     ${step>0?'<button class="back">← Retour</button>':''}
     <p class="skip">Tu sais déjà ce qu'il te faut ?
-      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a><a href="#" data-go="p">Protocol</a><a href="#" data-go="c">Consultation 1:1</a></p>`;
+      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a>${bfActive()?"":'<a href="#" data-go="p">Protocol</a>'}<a href="#" data-go="c">Consultation 1:1</a></p>`;
   stage.querySelectorAll("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();showResult(a.dataset.go);toQuiz();});
   stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
   const back = stage.querySelector(".back"); if(back) back.onclick=undo;
@@ -434,13 +505,24 @@ function undo(){
 function result(){
   // plus haut score ; égalité : Protocol > Coaching > Foundations
   let k = ["p","c","f"].reduce((a,b)=>score[b]>score[a]?b:a);
+  if (k === "p" && bfActive()) k = "f";   // pas d'offre Protocol pendant le Black Friday
   if (k === "f" && hist.some(h => h.o.lvl === "adv")) k = "e";
   showResult(k);
+}
+/* Offre principale : le parcours complet (tarif Black Friday pendant l'opération), puis les programmes seuls */
+function bundleHTML(){
+  const bf = bfActive(), price = bf ? BF.bundlePrice : P.bundle, was = bf ? P.bundle : P.bundleBarred, link = bf ? BF.bundleCheckoutUrl : LINKS.bundle;
+  const faq = (CONFIG.faq.enabled || qs.get("faq") === "1") ? `<div class="faq">${CONFIG.faq.items.map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>` : "";
+  return `<div class="bundle"><span class="tag">${bf?"Black Friday":"Meilleure offre"}</span><h3>Le parcours complet : Foundations + Engine</h3><p class="bp"><s>${eur(was)}</s><b>${eur(price)}</b>paiement unique · tu économises ${eur(was-price)}</p><ul><li>24 semaines, du premier jour au test moteur final</li><li>Foundations pose les bases, Engine construit le moteur : aucune pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus :</b> Nutrition Autopilote, 30 recettes protéinées et plans repas (valeur ${eur(P.bonusValue)})</li></ul><a class="btn" href="${link}" data-pay>Prendre le parcours complet · ${eur(price)}</a>${trustHTML()}</div>
+    <p class="solo">Ou un seul programme</p>
+    ${bf?`<p class="solo-more">Les deux programmes pour ${eur(BF.bundlePrice-P.foundations)} de plus qu'un seul.</p>`:""}
+    <div class="solo-btns"><div class="solo-item"><a class="btn ghost" href="${LINKS.foundations}" data-pay>Foundations seul · ${eur(P.foundations)}</a><small>12 semaines · accès à vie</small></div><div class="solo-item"><a class="btn ghost" href="${LINKS.engine}" data-pay>Engine seul · ${eur(P.engine)}</a><small>12 semaines · accès à vie</small></div></div>
+    ${faq}`;
 }
 function showResult(k){
   const R = RESULTS[k];
   const vsl = VSL[k] ? `<div class="vsl" data-vsl="${VSL[k]}"><iframe src="https://player.mux.com/${VSL[k]}?autoplay=true&muted=true&loop=true&accent-color=%23f33d4c" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="${R.name}"></iframe><button class="vsl-tap" aria-label="Lancer la vidéo avec le son"><span>🔊 Lancer avec le son</span></button></div>` : "";
-  const actions = R.actions.map(a=>`<a class="btn ${a.ghost||R.bundle?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
+  const actions = R.actions.map(a=>`<a class="btn ${a.ghost?'ghost':''}" href="${a.h}"${a.h.startsWith('#') ? '' : (a.h===LINKS.coaching ? ' data-cal target="_blank" rel="noopener"' : ' data-pay')}>${a.t}</a>`).join("");
   const proof = PROOF[k] ? `<div class="proof-vids"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid">${PROOF[k].map(v=>`<div class="vsl"><iframe loading="lazy" src="https://player.mux.com/${v.id}?accent-color=%23f33d4c" allow="fullscreen; picture-in-picture; encrypted-media" allowfullscreen title="Retour de ${v.who}"></iframe></div>`).join("")}</div><div class="actions">${actions}</div></div>` : "";
   stage.innerHTML = `${bar(QUESTIONS.length)}<div class="result">
     <span class="pill">Bienvenue dans la team</span>
@@ -449,8 +531,7 @@ function showResult(k){
     <p>Tu veux ${goal} ? ${R.why}</p>
     <ul>${R.list.map(l=>`<li>${l}</li>`).join("")}</ul>
     <div class="price">${R.price}</div>
-    ${R.bundle ? `<div class="bundle"><span class="tag">Meilleure offre</span><h3>Le parcours complet : Foundations + Engine</h3><p class="bp"><s>194 €</s><b>169 €</b>paiement unique · tu économises 25 €</p><ul><li>24 semaines, du premier jour au test moteur final</li><li>Foundations pose les bases, Engine construit le moteur : aucune pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus : un appel de 15 min avec Quentin</b> pour te guider dans ton parcours</li></ul><a class="btn" href="${LINKS.bundle}" data-pay>Prendre le parcours complet · 169 €</a></div><p class="solo">Ou un seul programme</p>` : ""}
-    <div class="actions">${actions}</div>
+    ${R.bundle ? bundleHTML() : `<div class="actions">${actions}</div>`}
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
@@ -473,6 +554,16 @@ payEl.addEventListener("click", e=>{ if(e.target===payEl) closePay(); });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") closePay(); });
 function toQuiz(){ document.getElementById("quiz").scrollIntoView({behavior:"smooth",block:"start"}); }
 render();
+
+/* ---------- cartes « Ton parcours » : prix lus dans la config ---------- */
+function renderParcours(){
+  const both = bfActive() ? `ou les deux pour ${eur(BF.bundlePrice)} (Black Friday)` : `ou les deux pour ${eur(P.bundle)}`;
+  document.querySelectorAll("#parcours [data-card]").forEach(e=>e.innerHTML = `<b>${eur(P[e.dataset.card])}</b> · accès à vie`);
+  document.querySelectorAll("#parcours [data-both]").forEach(e=>e.textContent = both);
+  document.querySelectorAll("#parcours [data-consult]").forEach(e=>e.textContent = `30 minutes · ${eur(P.consultation)}`);
+}
+renderParcours();
+if(POPUP_PAY) document.querySelectorAll("#bf-top [data-pay], #bf-bar").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
 
 /* ---------- liens directs : /#engine ouvre la fiche Engine ---------- */
 const HASH = { foundations:"f", engine:"e", protocol:"p", coaching:"c" };
