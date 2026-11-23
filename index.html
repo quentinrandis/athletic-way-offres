@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Athletic Way — Trouve ton programme</title>
-<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Engine, Protocol ou consultation 1:1).">
+<meta name="description" content="4 questions, 30 secondes : découvre le format Athletic Way qui te correspond (Foundations, Engine, Protocol ou coaching 1:1).">
 <link rel="icon" type="image/svg+xml" href="img/aw-logo-red.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,13 @@
   .hero h1 span{color:var(--red)}
   .hero p{text-shadow:0 1px 12px rgba(0,0,0,.6);margin-top:22px;font-size:clamp(16px,2vw,20px);color:#dcdcdc;max-width:500px}
   .hero .btn{margin-top:32px}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .hero .hero-ctas .btn{margin-top:0}
+  .hero .btn.ghost{background:rgba(10,10,10,.45);backdrop-filter:blur(6px)}
+  .coach-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+  .coach-ctas .btn{margin-top:0}
+  .bf-coach{font-size:13px;color:var(--muted)}
+  .bf-coach a{color:var(--text);text-underline-offset:4px}
   .stats{display:flex;flex-wrap:wrap;gap:8px 36px;margin-top:40px}
   .stats div{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
   .stats b{display:block;font:400 38px/1 "Bebas Neue";color:var(--text);letter-spacing:.02em}
@@ -255,7 +262,7 @@ function renderBf(){
     <article class="bf-prog">${vslHTML(V.f, "Athletic Foundations")}<div><span class="num">01 · 12 semaines</span><h3>Athletic Foundations</h3><p>Tu poses les bases. Tu sprintes, tu sautes, tu deviens plus fort.</p><ul><li>3 phases : Bases, Progression, Force</li><li>4 séances / semaine, moins d'une heure</li><li>Vidéos de démonstration et alternatives matériel</li><li>Test de force en semaine 12</li></ul></div></article>
     <article class="bf-prog">${vslHTML(V.e, "Athletic Engine")}<div><span class="num">02 · 12 semaines</span><h3>Athletic Engine</h3><p>La suite directe. Tu construis le moteur : plus de puissance, plus de vitesse, plus de caisse.</p><ul><li>3 phases, dans la continuité de Foundations</li><li>4 à 5 séances / semaine, moins d'une heure par séance</li><li>Nouveau test moteur en semaine 12</li></ul></div></article>
   </div>
-  <div class="bf-offer"><h3>Les deux programmes. Un seul paiement.</h3><ul><li>Foundations puis Engine : 24 semaines, sans pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus :</b> Nutrition Autopilote, 30 recettes protéinées et plans repas (valeur ${eur(P.bonusValue)})</li></ul><div class="bf-price"><s>${eur(BF.referencePrice)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(BF.referencePrice - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div>`;
+  <div class="bf-offer"><h3>Les deux programmes. Un seul paiement.</h3><ul><li>Foundations puis Engine : 24 semaines, sans pause entre les deux</li><li>Accès à vie aux deux programmes · garantie 30 jours</li><li><b>Bonus :</b> Nutrition Autopilote, 30 recettes protéinées et plans repas (valeur ${eur(P.bonusValue)})</li></ul><div class="bf-price"><s>${eur(BF.referencePrice)}</s><b>${eur(BF.bundlePrice)}</b></div><p class="bf-save">tu économises ${eur(BF.referencePrice - BF.bundlePrice)}</p><p class="bf-count">Fin dans <b data-countdown></b></p><a class="btn bf-btn" href="${BF.bundleCheckoutUrl}" data-pay>Je prends le parcours · ${eur(BF.bundlePrice)}</a>${trustHTML()}<a class="bf-quiz" href="#quiz">Un seul programme ou pas sûr ? Fais le quiz</a></div><p class="bf-coach" style="text-align:center;margin-top:18px">Tu préfères être coaché en 1:1 ? <a href="${CONFIG.links.coaching}" data-cal target="_blank" rel="noopener">Réserve ton appel coaching →</a></p>`;
   bar.href = BF.bundleCheckoutUrl;
   bar.innerHTML = `<b>BLACK FRIDAY</b><span>Le parcours complet à ${eur(BF.bundlePrice)} au lieu de ${eur(BF.referencePrice)}</span><span>Fin dans <b data-countdown></b></span>`;
   tick(); setInterval(tick, 1000);
@@ -277,7 +284,7 @@ function renderBf(){
     <div class="badge">500+ mecs et meufs qui s'entraînent sérieusement sans se prendre au sérieux</div>
     <h1>Athlétique.<br>Esthétique.<br><span>Construit pour durer.</span></h1>
     <p>Les autres te promettent un corps de rêve en 6 semaines. Moi je te promets du boulot, du fun et des résultats qui tiennent. 4 questions pour trouver ton format.</p>
-    <a class="btn" href="#quiz">Je rejoins la team</a>
+    <div class="hero-ctas"><a class="btn" href="#quiz">Je rejoins la team</a><a class="btn ghost" href="#coaching">Coaching 1:1</a></div>
     <div class="stats"><div><b>500+</b>transformations</div><div><b>10 ans</b>de coaching</div><div><b>4 pays</b>US · AUS · UK · FR</div></div>
   </div>
 </header>
@@ -365,12 +372,13 @@ function renderBf(){
       <span class="pboth" data-both></span>
       <span class="go">Voir Engine →</span>
     </a>
-    <a class="step" href="#coaching">
+    <a class="step new" href="#coaching">
+      <span class="tag">Places limitées</span>
       <span class="num">03</span>
-      <h3>Consultation 1:1</h3>
-      <span class="dur" data-consult></span>
-      <p>On creuse ton cas en détail : historique, blessures, planning, blocages. Tu repars avec un plan précis. Remboursée si tu pars avec un programme.</p>
-      <span class="go">Voir la Consultation →</span>
+      <h3>Coaching 1:1</h3>
+      <span class="dur">Sur appel · avec moi</span>
+      <p>On le fait ensemble. Un programme fait pour toi, ajusté chaque semaine selon tes retours.</p>
+      <span class="go">Voir le Coaching →</span>
     </a>
   </div>
 
@@ -412,7 +420,7 @@ function renderBf(){
       <p>Ce qui m'énerve dans le fitness classique : tout le monde s'entraîne dur, personne ne réfléchit. On empile du volume, on copie des bodybuilders, et on finit bloqué. Ou blessé.</p>
       <p>Ma méthode, c'est le monde athlétique mélangé à la muscu fonctionnelle. Et je m'entraîne exactement comme je te fais t'entraîner. Je pratique ce que je prêche.</p>
       <p>Je suis exigeant, mais promis, je mords pas.</p>
-      <a class="btn" href="#quiz">Trouver mon programme</a>
+      <div class="coach-ctas"><a class="btn" href="#coaching" data-cal>Réserver mon appel coaching</a><a class="btn ghost" href="#quiz">Trouver mon programme</a></div>
     </div>
   </div>
 </section>
@@ -440,7 +448,9 @@ Cal("init", {origin:"https://app.cal.com"});
 <script>
 /* ---------- LIENS ---------- */
 const LINKS = CONFIG.links;   // prix et liens : voir config.js
-const CAL_LINK = "jimmycoach/free30"; // pop-up de réservation cal.com (si le script ne charge pas, le lien s'ouvre dans un nouvel onglet)
+const CAL_LINK = LINKS.coaching.replace("https://cal.com/", ""); // pop-up de réservation cal.com (si le script ne charge pas, le lien s'ouvre dans un nouvel onglet)
+// tous les boutons coaching de la page ouvrent la réservation en pop-up, sans quitter la page
+document.addEventListener("click", e => { const a = e.target.closest("[data-cal]"); if (a && window.Cal && Cal.loaded){ e.preventDefault(); Cal("modal", {calLink:CAL_LINK, config:{layout:"month_view", theme:"dark"}}); } });
 const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
   c: [
     {id:"OAE3YMvuffvd3I7qEpYhDlgH9gTSyn4IcpK9xTNPS00I", who:"Oli"},
@@ -449,7 +459,7 @@ const PROOF = { // retours vidéo de clients en coaching 1:1 (Mux)
 };
 const VSL = CONFIG.videos;   // vidéos Mux : voir config.js
 
-/* ---------- QUIZ : f = Foundations, e = Engine, p = Protocol, c = Consultation ---------- */
+/* ---------- QUIZ : f = Foundations, e = Engine, p = Protocol, c = Coaching ---------- */
 const QUESTIONS = [
   { q:"Alors, tu veux quoi ?", opts:[
     { t:"Être plus fort", goal:"devenir plus fort" },
@@ -464,11 +474,11 @@ const QUESTIONS = [
   { q:"Tu fonctionnes comment ?", opts:[
     { t:"Donne-moi un plan, je me débrouille", p:{f:2} },
     { t:"Un système qui évolue, avec une team", s:"Nouveau bloc chaque mois, briefs vidéo, communauté", p:{p:2} },
-    { t:"Qu'on creuse mon cas à fond", s:"30 min en visio, rien que sur moi, avec un plan précis à la clé", p:{c:2} } ] },
+    { t:"Un coach sur mon dos", s:"Je veux être suivi et ajusté chaque semaine", p:{c:2} } ] },
   { q:"Et côté budget ?", opts:[
     { t:"Un petit billet, une seule fois", s:"Moins de 100 €", p:{f:2} },
     { t:"Un abonnement mensuel, ça me va", s:`${eur(P.protocolMonthly)} / mois, annulable`, p:{p:2} },
-    { t:"J'investis pour aller vite", s:`Consultation de 30 min · ${eur(P.consultation)}, remboursée si tu pars avec un programme`, p:{c:2} } ] }
+    { t:"J'investis pour aller vite", s:"Coaching 1:1, on en parle en appel", p:{c:2} } ] }
 ];
 
 const RESULTS = {
@@ -488,10 +498,10 @@ const RESULTS = {
       list:["Nouveau bloc de 4 semaines chaque mois","3 à 6 séances / semaine, adaptables à ta vie","Live Q&A mensuel avec Quentin","Nutrition, recettes et accès au club privé"],
       price:`<s>${eur(P.protocolMonthlyBarred)}</s><b>${eur(P.protocolMonthly)}</b>/ mois, sans engagement`,
       actions:[{t:`Rejoindre à ${eur(P.protocolMonthly)} / mois`,h:LINKS.protocolMois},{t:`Plan 3 mois · ${eur(P.protocol3m)}`,h:LINKS.protocolTri,ghost:1}] },
-  c:{ name:"Consultation 1:1", why:"30 minutes en visio, rien que sur toi. On décortique ton historique, ton planning, tes blocages. Tu repars avec la solution qui colle à ton cas, et la marche à suivre pour l'appliquer. Si tu pars avec un accompagnement ou un programme, les frais te sont remboursés.",
-      list:["30 minutes en visio, rien que sur toi","On analyse ton historique, tes blessures, ton planning, ce qui te bloque","Un diagnostic clair : ce qui marche pour ton cas, et ce qui te fait perdre du temps","Le bon programme, dans le bon ordre, adapté à ta vie","Frais remboursés si tu pars avec un accompagnement ou un programme"],
-      price:`<b>${eur(P.consultation)}</b>30 minutes · remboursés si tu pars avec un programme`,
-      actions:[{t:"Réserver ma consultation",h:LINKS.coaching}] }
+  c:{ name:"Coaching 1:1", why:"Un programme fait pour toi et ajusté chaque semaine. On commence par un appel : on voit si on s'entend, et si je peux vraiment t'aider.",
+      list:["Appel découverte avec Quentin","Programme 100 % sur-mesure, sans template","Construit autour de ton historique, tes blessures et ton planning","Ajustements chaque semaine selon tes retours"],
+      price:'<b>Sur appel</b>places limitées',
+      actions:[{t:"Réserver mon appel",h:LINKS.coaching}] }
 };
 
 const HINTS = ['Commence par le plus facile.','Tiens bon, c\'est plus court qu\'une série de squats.','Presque. Pas de triche.','La dernière. Après, tu sais quoi faire.'];
@@ -509,7 +519,7 @@ function render(){
     <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span>${o.t}${o.s?`<small>${o.s}</small>`:""}</span></button>`).join("")}</div>
     ${step>0?'<button class="back">← Retour</button>':''}
     <p class="skip">Tu sais déjà ce qu'il te faut ?
-      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a>${bfActive()?"":'<a href="#" data-go="p">Protocol</a>'}<a href="#" data-go="c">Consultation 1:1</a></p>`;
+      <a href="#" data-go="f">Foundations</a><a href="#" data-go="e">Engine</a>${bfActive()?"":'<a href="#" data-go="p">Protocol</a>'}<a href="#" data-go="c">Coaching 1:1</a></p>`;
   stage.querySelectorAll("[data-go]").forEach(a=>a.onclick=e=>{e.preventDefault();showResult(a.dataset.go);toQuiz();});
   stage.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
   const back = stage.querySelector(".back"); if(back) back.onclick=undo;
@@ -559,7 +569,6 @@ function showResult(k){
     ${proof}
     <button class="back" id="redo">Je refais le quiz</button>
   </div>`;
-  stage.querySelectorAll("[data-cal]").forEach(a=>a.onclick=e=>{ if(window.Cal && Cal.loaded){ e.preventDefault(); Cal("modal",{calLink:CAL_LINK,config:{layout:"month_view",theme:"dark"}}); } });
   if(POPUP_PAY) stage.querySelectorAll("[data-pay]").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
   document.getElementById("redo").onclick=()=>{step=0;score={f:0,p:0,c:0};hist=[];goal="devenir un athlète complet";render();toQuiz();};
 }
@@ -582,7 +591,6 @@ function renderParcours(){
   const both = bfActive() ? `ou les deux pour ${eur(BF.bundlePrice)} (Black Friday)` : `ou les deux pour ${eur(P.bundle)}`;
   document.querySelectorAll("#parcours [data-card]").forEach(e=>e.innerHTML = `<b>${eur(P[e.dataset.card])}</b> · accès à vie`);
   document.querySelectorAll("#parcours [data-both]").forEach(e=>e.textContent = both);
-  document.querySelectorAll("#parcours [data-consult]").forEach(e=>e.textContent = `30 minutes · ${eur(P.consultation)}`);
 }
 renderParcours();
 if(POPUP_PAY) document.querySelectorAll("#bf-top [data-pay], #bf-bar").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });

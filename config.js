@@ -11,7 +11,6 @@ const CONFIG = {
     bundle: 169,                 // parcours complet, prix normal
     bundleBarred: 194,
     bonusValue: 17,              // valeur du bonus Nutrition Autopilote
-    consultation: 49,
     protocolMonthly: 39,
     protocolMonthlyBarred: 59,
     protocol3m: 97
@@ -22,7 +21,7 @@ const CONFIG = {
     bundle:       "https://app.jimmycoach.com/pay/45pFmUqU",
     protocolMois: "https://app.jimmycoach.com/pay/EmCQuXwi",
     protocolTri:  "https://app.jimmycoach.com/pay/EUAGyP5b",
-    coaching:     "https://cal.com/jimmycoach/free30"
+    coaching:     "https://cal.com/jimmycoach/coaching-call"   // réservation de l'appel coaching (s'ouvre en pop-up sur la page)
   },
   /* Vidéos Mux des programmes */
   videos: {
