@@ -386,11 +386,141 @@ function renderBf(){
   <p class="member">Déjà membre d'Athletic Protocol ? Ta programmation t'attend dans l'appli Jimmy.</p>
 </section>
 
+<section class="block pad" id="coaching">
+  <style>
+    #coaching{scroll-margin-top:84px}
+    #coaching .btn{text-align:center}
+    #coaching .c-head{max-width:760px}
+    #coaching .c-head h2{margin-bottom:18px}
+    #coaching .c-head .lead{margin:0 0 26px}
+    #coaching .c-note{margin-top:12px;font-size:13px;color:var(--muted)}
+    #coaching .c-block{margin-top:clamp(48px,8vh,80px)}
+    #coaching h3.c-title{font-size:clamp(30px,5vw,44px);margin-bottom:20px}
+    #coaching .c-grid{display:grid;grid-template-columns:1fr;gap:14px}
+    #coaching .c-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px 20px}
+    #coaching .c-card::before{content:"";display:block;width:28px;height:3px;background:var(--red);margin-bottom:14px}
+    #coaching .c-card h4{font:400 26px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.01em;text-transform:uppercase;margin-bottom:8px}
+    #coaching .c-card p{color:var(--muted);font-size:15px}
+    #coaching .c-after{margin-top:18px;color:#dcdcdc;font-size:16px}
+    #coaching .c-fit{display:grid;grid-template-columns:1fr;gap:14px}
+    #coaching .c-fit>div{border:1px solid var(--line);border-radius:10px;padding:22px 20px}
+    #coaching .c-fit .yes{border-color:var(--red);background:rgba(243,61,76,.06)}
+    #coaching .c-fit h4{font:400 28px/1 "Bebas Neue",Impact,sans-serif;text-transform:uppercase;margin-bottom:14px}
+    #coaching .c-fit ul{list-style:none;display:grid;gap:12px}
+    #coaching .c-fit li{position:relative;padding-left:28px;font-size:15px}
+    #coaching .c-fit li::before{position:absolute;left:0;top:0;font-weight:700}
+    #coaching .c-fit .yes li::before{content:"✓";color:var(--red)}
+    #coaching .c-fit .no li{color:var(--muted)}
+    #coaching .c-fit .no li::before{content:"✕";color:var(--muted)}
+    #coaching .c-fit a{color:var(--text);text-underline-offset:3px}
+    #coaching .c-steps{list-style:none;display:grid;grid-template-columns:1fr;gap:14px;counter-reset:s}
+    #coaching .c-steps li{counter-increment:s;position:relative;background:var(--panel);border-radius:10px;padding:22px 20px 22px 76px}
+    #coaching .c-steps li::before{content:counter(s);position:absolute;left:20px;top:18px;font:400 44px/1 "Bebas Neue",Impact,sans-serif;color:var(--red)}
+    #coaching .c-steps b{display:block;font-weight:600;font-size:16px;margin-bottom:4px}
+    #coaching .c-steps span{color:var(--muted);font-size:15px}
+    #coaching .c-proof .stats{display:flex;flex-wrap:wrap;gap:8px 36px;margin-bottom:20px}
+    #coaching .c-proof .stats div{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    #coaching .c-proof .stats b{display:block;font:400 38px/1 "Bebas Neue";color:var(--text);letter-spacing:.02em}
+    #coaching .c-proof p{color:#dcdcdc;font-size:17px;max-width:640px}
+    #coaching .c-proof a{display:inline-block;margin-top:14px;color:var(--red);font-size:15px;text-underline-offset:4px}
+    #coaching .c-final{text-align:center;border:2px solid var(--red);border-radius:14px;background:rgba(243,61,76,.07);padding:36px 22px}
+    #coaching .c-final h3{font-size:clamp(36px,7vw,60px);margin-bottom:14px}
+    #coaching .c-final p{color:#dcdcdc;font-size:16px;max-width:520px;margin:0 auto 24px}
+    #coaching .c-final .btn,#coaching .c-head .btn{width:100%}
+    @media(min-width:640px){
+      #coaching .c-final .btn,#coaching .c-head .btn{width:auto}
+      #coaching .c-grid.four{grid-template-columns:repeat(2,1fr)}
+      #coaching .c-fit{grid-template-columns:1fr 1fr}
+    }
+    @media(min-width:900px){
+      #coaching .c-grid.three,#coaching .c-steps{grid-template-columns:repeat(3,1fr)}
+      #coaching .c-grid.four{grid-template-columns:repeat(4,1fr)}
+    }
+  </style>
+
+  <div class="c-head">
+    <div class="eyebrow">Coaching 1-on-1 · Appel gratuit</div>
+    <h2>Un programme, l'IA te le fait. Te tenir jusqu'au bout, non.</h2>
+    <p class="lead">15 minutes avec moi, en direct. Je regarde où t'en es, ce qui te bloque, et je te dis exactement quoi faire. Gratuit.</p>
+    <a class="btn" href="#coaching" data-cal>Réserver mon appel gratuit (15 min)</a>
+    <p class="c-note">Je fais ces appels moi-même. Peu de créneaux chaque semaine.</p>
+  </div>
+
+  <div class="c-block">
+    <h3 class="c-title">Ce que tu repars avec après l'appel</h3>
+    <div class="c-grid three">
+      <div class="c-card"><h4>Ton point de départ.</h4><p>Où t'en es vraiment : force, mobilité, cardio, récup. Sans filtre.</p></div>
+      <div class="c-card"><h4>Ce qui te bloque.</h4><p>Pourquoi tu stagnes ou pourquoi tu te blesses. Souvent, c'est un détail.</p></div>
+      <div class="c-card"><h4>Tes 3 prochaines actions.</h4><p>Concrètes, pour cette semaine. Que tu bosses avec moi ou pas.</p></div>
+    </div>
+    <p class="c-after">Même si on ne travaille pas ensemble, tu repars avec un plan clair.</p>
+  </div>
+
+  <div class="c-block c-fit">
+    <div class="yes">
+      <h4>C'est pour toi si</h4>
+      <ul>
+        <li>T'as plus de 30 ans, un passé sportif ou un métier qui te demande d'être en forme.</li>
+        <li>Tu t'entraînes, mais tu stagnes. Ou tu te blesses dès que tu pousses.</li>
+        <li>Tu recommences à zéro tous les 3 mois, parce que la vie s'accélère.</li>
+        <li>Tu veux être fort, mobile et en forme à 40, 50, 60 ans. Pas juste sec pour l'été.</li>
+      </ul>
+    </div>
+    <div class="no">
+      <h4>C'est pas pour toi si</h4>
+      <ul>
+        <li>Tu cherches un plan miracle en 30 jours.</li>
+        <li>Tu veux juste un PDF. Pour ça, il y a <a href="#parcours">Foundations et Engine</a>, juste au-dessus.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="c-block">
+    <h3 class="c-title">Si on travaille ensemble</h3>
+    <div class="c-grid four">
+      <div class="c-card"><h4>Ton programme sur mesure.</h4><p>Construit pour ton matos, ton emploi du temps, ton corps. Dans l'app Jimmy.</p></div>
+      <div class="c-card"><h4>Ajusté chaque semaine.</h4><p>Je regarde ce que t'as vraiment fait. J'adapte la semaine suivante.</p></div>
+      <div class="c-card"><h4>Moi, en direct.</h4><p>Tu m'écris quand tu veux. Douleur, voyage, coup de mou : on adapte.</p></div>
+      <div class="c-card"><h4>La méthode Athletic Way.</h4><p>Force, explosivité, cardio, mobilité. Moins d'une heure par séance.</p></div>
+    </div>
+  </div>
+
+  <div class="c-block">
+    <h3 class="c-title">Comment ça marche</h3>
+    <ol class="c-steps">
+      <li><b>Tu réserves 15 minutes.</b><span>On parle de toi, de ce que tu vises, de ce qui coince.</span></li>
+      <li><b>Je te dis franchement si je peux t'aider.</b><span>Si oui, je construis ton plan et tu le reçois dans Jimmy avant ta première semaine.</span></li>
+      <li><b>On avance ensemble.</b><span>Un point chaque semaine. Des ajustements. Des messages quand t'en as besoin.</span></li>
+    </ol>
+  </div>
+
+  <div class="c-block c-proof">
+    <div class="stats"><div><b>10 ans</b>de coaching</div><div><b>250+</b>clients suivis en ligne</div><div><b>4 pays</b>US · Australie · UK · France</div></div>
+    <p>10 ans de coaching. Plus de 250 clients suivis en ligne. 4 pays : US, Australie, UK, France. Je ne te vends pas une méthode que j'ai lue. Je t'apprends celle que j'applique sur moi et sur mes clients depuis 10 ans.</p>
+    <a href="#avis">Voir les avis →</a>
+  </div>
+
+  <div class="c-block c-final">
+    <h3>15 minutes. Gratuit. Avec moi.</h3>
+    <p>Pas un assistant, pas un formulaire. Ces appels, je les fais moi-même, et il y en a peu chaque semaine. Prends le tien.</p>
+    <a class="btn" href="#coaching" data-cal>Réserver mon appel gratuit (15 min)</a>
+  </div>
+
+  <div class="c-block faq">
+    <details><summary>L'appel est vraiment gratuit ?</summary><p>Oui. 15 minutes, zéro engagement. Si je ne peux pas t'aider, je te le dis franchement.</p></details>
+    <details><summary>Je vais devoir acheter quelque chose ?</summary><p>Non. Si je pense pouvoir t'aider, je t'explique comment je travaille à la fin de l'appel. Tu décides après, tranquille.</p></details>
+    <details><summary>J'ai besoin d'une salle ?</summary><p>Non. Salle, home gym ou poids du corps : je construis avec ce que t'as.</p></details>
+    <details><summary>Combien de séances par semaine ?</summary><p>Ça dépend de ton emploi du temps. 3 séances suffisent pour progresser. Moins d'une heure chacune.</p></details>
+    <details><summary>Et si je me blesse ou que je voyage ?</summary><p>On adapte la semaine. C'est tout l'intérêt du coaching.</p></details>
+    <details><summary>Quelle différence avec Foundations ou Engine ?</summary><p>Les programmes sont les mêmes pour tout le monde. Le coaching est fait pour toi, et il bouge avec toi chaque semaine.</p></details>
+  </div>
+</section>
+
 <div class="quiz-wrap">
   <main class="quiz" id="quiz" aria-live="polite"><div id="stage"></div></main>
 </div>
 
-<section class="block pad">
+<section class="block pad" id="avis">
   <div class="eyebrow">Avis</div>
   <h2>C'est pas moi qui le dis.<br>C'est eux.</h2>
   <div class="quotes">
@@ -593,10 +723,11 @@ function renderParcours(){
   document.querySelectorAll("#parcours [data-both]").forEach(e=>e.textContent = both);
 }
 renderParcours();
+document.querySelectorAll("a[data-cal]").forEach(a=>{ a.href = LINKS.coaching; a.target = "_blank"; a.rel = "noopener"; });
 if(POPUP_PAY) document.querySelectorAll("#bf-top [data-pay], #bf-bar").forEach(a=>a.onclick=e=>{ e.preventDefault(); openPay(a.href); });
 
 /* ---------- liens directs : /#engine ouvre la fiche Engine ---------- */
-const HASH = { foundations:"f", engine:"e", protocol:"p", coaching:"c" };
+const HASH = { foundations:"f", engine:"e", protocol:"p" };   // #coaching mène à la section coaching
 function openFromHash(){
   const k = HASH[location.hash.slice(1)];
   if (k) { showResult(k); toQuiz(); }
