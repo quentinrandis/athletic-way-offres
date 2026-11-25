@@ -327,6 +327,44 @@ function renderBf(){
   </div>
 </section>
 
+<section class="block pad" id="app">
+  <style>
+    #app .app-wrap{display:grid;gap:30px;grid-template-areas:"head" "phones" "feats"}
+    #app .app-head{grid-area:head}#app .app-feats{grid-area:feats}#app .phones{grid-area:phones}
+    #app .lead{margin:0}
+    #app .app-feats{list-style:none;display:grid;gap:12px;margin:0;padding:0}
+    #app .app-feats li{position:relative;padding-left:24px;color:#dcdcdc;font-size:16px}
+    #app .app-feats li::before{content:"";position:absolute;left:0;top:11px;width:13px;height:2px;background:var(--red)}
+    #app .app-feats b{color:#fff}
+    #app .phones{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:560px;margin:0 auto;width:100%}
+    #app figure{margin:0;text-align:center}
+    #app .phone{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#111;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+    #app .phone img{display:block;width:100%;height:auto}
+    #app figcaption{margin-top:12px;font:400 20px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.03em;text-transform:uppercase}
+    #app figcaption span{display:block;margin-top:5px;font:400 13px/1.35 "DM Sans",sans-serif;letter-spacing:0;text-transform:none;color:var(--muted)}
+    #app .phones figure:last-child{margin-top:34px}
+    @media(min-width:900px){#app .app-wrap{grid-template-columns:1fr 1fr;grid-template-areas:"head phones" "feats phones";column-gap:56px;row-gap:26px;align-items:start;grid-template-rows:auto 1fr}}
+  </style>
+  <div class="app-wrap">
+    <div class="app-head">
+      <div class="eyebrow">Sur l'app Jimmy</div>
+      <h2>Tout dans ta poche.<br>Entraînement et nutrition.</h2>
+      <p class="lead">Programme ou coaching, tout se passe sur l'application Jimmy. Tu ouvres, tu sais quoi faire. Pas de tableur, pas de notes à recopier.</p>
+    </div>
+    <ul class="app-feats">
+        <li><b>Ta semaine planifiée.</b> Tes séances du jour, ta progression semaine après semaine.</li>
+        <li><b>Ton planning bouge ?</b> Tu déplaces une séance en un geste.</li>
+        <li><b>Ta nutrition calculée pour toi.</b> Calories, protéines, glucides, lipides.</li>
+        <li><b>Ton repas en photo.</b> Les calories et les macros s'ajoutent toutes seules.</li>
+        <li><b>En coaching,</b> tu me parles directement dans l'app.</li>
+    </ul>
+    <div class="phones">
+      <figure><div class="phone"><img src="img/app_training.jpg" alt="App Jimmy : plan d'entraînement de la semaine et bibliothèque de programmes" loading="lazy" width="560" height="1220"></div><figcaption>Entraînement<span>Ta semaine, tes programmes</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/app_nutrition.jpg" alt="App Jimmy : suivi des calories et des macros du jour" loading="lazy" width="560" height="1204"></div><figcaption>Nutrition<span>Calories et macros du jour</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <section class="block pad" id="coaching">
   <style>
     #coaching{scroll-margin-top:84px}
