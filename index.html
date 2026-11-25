@@ -230,7 +230,7 @@
   @media(max-width:700px){.clips{grid-template-columns:repeat(2,1fr)}}
   @media(prefers-reduced-motion:reduce){.hero video,.clips video{display:none}}
 </style>
-<script src="config.js"></script>
+<script src="config.js?v=20261125"></script>
 <script>
 /* ---------- aides communes : prix, Black Friday ---------- */
 const P = CONFIG.prices, BF = CONFIG.blackFriday;
@@ -401,6 +401,13 @@ function renderBf(){
     #coaching .c-proof .stats div{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
     #coaching .c-proof .stats b{display:block;font:400 38px/1 "Bebas Neue";color:var(--text);letter-spacing:.02em}
     #coaching .c-proof p{color:#dcdcdc;font-size:17px;max-width:640px}
+    #coaching .c-reviews{margin-top:28px}
+    #coaching .c-reviews .eyebrow{margin-bottom:16px}
+    #coaching .pv-grid{display:grid;grid-template-columns:1fr;gap:18px}
+    #coaching .pv-grid figure{margin:0}
+    #coaching .pv-grid .vsl{margin:0}
+    #coaching .pv-grid figcaption{margin-top:8px;font-size:14px;color:var(--muted)}
+    @media(min-width:700px){#coaching .pv-grid{grid-template-columns:1fr 1fr}}
     #coaching .c-proof a{display:inline-block;margin-top:14px;color:var(--red);font-size:15px;text-underline-offset:4px}
     #coaching .c-final{text-align:center;border:2px solid var(--red);border-radius:14px;background:rgba(243,61,76,.07);padding:36px 22px}
     #coaching .c-final h3{font-size:clamp(36px,7vw,60px);margin-bottom:14px}
@@ -475,6 +482,7 @@ function renderBf(){
   <div class="c-block c-proof">
     <div class="stats"><div><b>10 ans</b>de coaching</div><div><b>250+</b>clients suivis en ligne</div><div><b>4 pays</b>US · Australie · UK · France</div></div>
     <p>10 ans de coaching. Plus de 250 clients suivis en ligne. 4 pays : US, Australie, UK, France. Je ne te vends pas une méthode que j'ai lue. Je t'apprends celle que j'applique sur moi et sur mes clients depuis 10 ans.</p>
+    <div class="c-reviews"><div class="eyebrow">Ce qu'ils en disent</div><div class="pv-grid" id="c-reviews"></div></div>
     <a href="#avis">Voir les avis →</a>
   </div>
 
@@ -559,7 +567,9 @@ const LINKS = CONFIG.links;   // prix et liens : voir config.js
 const CAL_LINK = LINKS.coaching.replace("https://cal.com/", ""); // pop-up de réservation cal.com (si le script ne charge pas, le lien s'ouvre dans un nouvel onglet)
 // tous les boutons coaching de la page ouvrent la réservation en pop-up, sans quitter la page
 document.addEventListener("click", e => { const a = e.target.closest("[data-cal]"); if (a && window.Cal && Cal.loaded){ e.preventDefault(); Cal("modal", {calLink:CAL_LINK, config:{layout:"month_view", theme:"dark"}}); } });
-const VSL = CONFIG.videos;   // vidéos Mux : voir config.js
+const VSL = CONFIG.videos;
+// Retours clients coaching : même lecteur que les VSL (aperçu muet en boucle, clic = son depuis le début)
+document.getElementById("c-reviews").innerHTML = (CONFIG.coachingReviews || []).map(v => `<figure>${vslHTML(v.id, "Retour de " + v.who)}<figcaption>${v.who}, en coaching 1:1</figcaption></figure>`).join("");   // vidéos Mux : voir config.js
 
 /* ---------- FICHES PROGRAMMES (liens directs /#foundations, /#engine, /#protocol) ---------- */
 

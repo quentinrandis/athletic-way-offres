@@ -29,6 +29,11 @@ const CONFIG = {
     e: "s8XwvcvEPUHagCGqCRskoxwicr01aywCGHAQI56qXzRs",
     p: "clbqnIWqsB902q00y2Ni2IQIxl00016LD6Nt400bnVCfx1VY"
   },
+  // Retours vidéo de clients en coaching 1:1 (Mux), affichés dans la section coaching
+  coachingReviews: [
+    { id: "OAE3YMvuffvd3I7qEpYhDlgH9gTSyn4IcpK9xTNPS00I", who: "Oli" },
+    { id: "xRkAmwC00Y01700ajeE3014xQ15CynRLTAgonviNltdng5E", who: "Julien" }
+  ],
   /* Black Friday : s'allume et s'éteint tout seul entre start et end.
      Test : ajouter ?bf=1 à l'adresse. Simuler une date : ?now=2026-11-28T00:00:00Z */
   blackFriday: {
